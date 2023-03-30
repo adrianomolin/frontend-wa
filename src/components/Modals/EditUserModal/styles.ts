@@ -6,7 +6,7 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 1rem;
 
   .content-items {
     flex: 1;
@@ -15,7 +15,7 @@ export const Content = styled.div`
 
 export const Form = styled.form`
   input {
-    width: 416px
+    width: 41rem
   }
 `;
 
@@ -36,8 +36,8 @@ export const Checkbox = styled.div`
   }
 
   input {
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
     accent-color: ${({ theme }) => theme.colors.primary.main};
   }
 

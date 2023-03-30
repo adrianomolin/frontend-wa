@@ -9,33 +9,47 @@ import { Logo } from '../../components/Logo';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import { useErrors } from '../../hooks/useErrors';
+import isEmailValid from '../../utils/isEmailValid';
 
 export function Authentication() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [active, setActive] = useState(false);
-
   const [loading, setLoading] = useState(false);
+
+  const { errors, setError, removeError, getErrorMessageByFieldName } = useErrors();
+
+  const isFormValid = (email && password && errors.length === 0);
 
   const { handleLogin } = useAuth();
 
-  function handleEmailInput(e: FormEvent<HTMLInputElement>) {
-    setEmail(e.currentTarget.value);
+  function handleEmailInput(event: FormEvent<HTMLInputElement>) {
+    setEmail(event.currentTarget.value);
 
-    !e.currentTarget.value || !password ? setActive(false) : setActive(true);
+    if (!event.currentTarget.value || !isEmailValid(email)) {
+      setError({ fieldName: 'email', message: 'Insira um e-mail válido.' });
+    } else {
+      removeError('email');
+    }
   }
 
-  function handlePasswordInput(e: FormEvent<HTMLInputElement>) {
-    setPassword(e.currentTarget.value);
+  function handlePasswordInput(event: FormEvent<HTMLInputElement>) {
+    setPassword(event.currentTarget.value);
 
-    !e.currentTarget.value || !email ? setActive(false) : setActive(true);
+    if (!event.currentTarget.value) {
+      setError({ fieldName: 'password', message: 'Insira uma senha.' });
+    } else {
+      removeError('password');
+    }
   }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    setLoading(true);
-    handleLogin(email, password);
+    if (isFormValid) {
+      setLoading(true);
+      handleLogin(email, password);
+    }
   }
 
   if (loading) {
@@ -50,28 +64,30 @@ export function Authentication() {
 
       <Logo fontSize={32}/>
 
-      <Form onSubmit={handleSubmit}>
-        <FormGroup title="E-mail">
+      <Form onSubmit={handleSubmit} noValidate>
+        <FormGroup error={getErrorMessageByFieldName('email')} title="E-mail">
           <Input
             type='email'
             value={email}
             placeholder='Seu e-mail de acesso'
             onChange={handleEmailInput}
+            error={getErrorMessageByFieldName('email')}
           />
         </FormGroup>
 
-        <FormGroup title="Senha">
+        <FormGroup error={getErrorMessageByFieldName('password')} title="Senha">
           <Input
             type='password'
             value={password}
             placeholder='Informe sua senha'
             onChange={handlePasswordInput}
+            error={getErrorMessageByFieldName('password')}
           />
         </FormGroup>
 
         <Button
           type='submit'
-          disabled={!active}
+          disabled={!isFormValid}
         >
           Fazer login
         </Button>

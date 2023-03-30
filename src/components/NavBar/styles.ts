@@ -89,7 +89,7 @@ export const NavItem = styled.div`
       color: ${({ theme }) => theme.colors.primary.main};
 
       span {
-        width: 16px;
+        width: 1rem;
         height: 1.5px;
         margin-top: 8px;
         background: ${({ theme }) => theme.colors.primary.main};

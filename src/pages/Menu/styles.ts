@@ -17,7 +17,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const NavItem = styled.div<HeaderProps>`
-  padding: 16px 40px;
+  padding: 1rem 40px;
 
   border-radius: 8px 8px 0 0;
   background: 'transparent';

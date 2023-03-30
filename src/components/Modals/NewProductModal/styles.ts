@@ -10,7 +10,7 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 1rem;
 `;
 
 export const Form = styled.form``;
@@ -25,7 +25,7 @@ export const Body = styled.div`
 `;
 
 export const FormContent = styled.div`
-  width: 416px;
+  width: 41rem;
 
   h2 {
     font-weight: 500;
@@ -58,11 +58,11 @@ export const FormContent = styled.div`
       margin-top: 0;
     }
 
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
   }
 
   .search-input {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
   }
 
   small {
@@ -71,17 +71,17 @@ export const FormContent = styled.div`
   }
 
   .category {
-    margin: 32px 0 16px 0;
+    margin: 32px 0 1rem 0;
     font-weight: 400;
     font-size: 14px;
   }
 `;
 
 export const ImageContainer = styled.div`
-  width: 416px;
+  width: 41rem;
   height: 244px;
 
-  margin: 16px 0 32px 0;
+  margin: 1rem 0 32px 0;
 
   border: 1px solid ${({ theme }) => theme.colors.gray['200']};
   border-radius: 8px;
@@ -91,7 +91,7 @@ export const ImageContainer = styled.div`
     color: transparent;
     height: 34%;
     width: 100%;
-    padding: 16px;
+    padding: 1rem;
   }
 
   input[type=file]::file-selector-button {
@@ -152,7 +152,7 @@ export const IngredientsList = styled.div`
 `;
 
 export const Ingredient = styled.div`
-  padding: 16px;
+  padding: 1rem;
 
   border: 1px solid ${({ theme }) => theme.colors.gray['-300']};
   border-radius: 8px;

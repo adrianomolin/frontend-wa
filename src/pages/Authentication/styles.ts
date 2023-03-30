@@ -10,13 +10,13 @@ export const Container = styled.div`
 
 export const Welcome = styled.div`
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.gray['500']}
+  color: ${({ theme }) => theme.colors.gray['500']};
   opacity: 0.9;
   margin-bottom: 4px;
 `;
 
 export const Form = styled.form`
-  margin-top: 8px;
+  margin-top: 32px;
 
   input {
     width: 384px;

@@ -5,7 +5,7 @@ interface CategoryProps {
 }
 
 export const Container = styled.div<CategoryProps>`
-  padding: 10px 16px;
+  padding: 10px 1rem;
   display: flex;
   align-items: center;
   justify-content: center;

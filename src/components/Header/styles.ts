@@ -35,9 +35,9 @@ export const Content = styled.div`
     h2 {
       color: #${({ theme  }) => theme.colors.gray['400']};
       font-weight: 500;
-      font-size: 16px;
+      font-size: 1rem;
       opacity: 0.9;
-      margin-top: 16px;
+      margin-top: 1rem;
     }
   }
 `;

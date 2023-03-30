@@ -23,14 +23,14 @@ export const OrderDetails = styled.div`
   }
 
   .order-items {
-    margin-top: 16px;
+    margin-top: 1rem;
     flex: 1;
 
     .item {
       display: flex;
 
       & + .item {
-        margin-top: 16px;
+        margin-top: 1rem;
       }
 
       img {

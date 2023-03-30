@@ -22,7 +22,7 @@ export const Container = styled.div`
   }
 
   h1 {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
   }
 `;
@@ -43,5 +43,5 @@ export const Content = styled.div`
 
   gap: 12px;
 
-  padding: 16px;
+  padding: 1rem;
 `;

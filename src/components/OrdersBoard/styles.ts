@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 
 export const Board = styled.div`
-  padding: 16px;
+  padding: 1rem;
   border: 1px solid rgba(204,204,204,0.4);
-  border-radius: 16px;
+  border-radius: 1rem;
   display:flex;
   flex-direction: column;
   align-items: center;

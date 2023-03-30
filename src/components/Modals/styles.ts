@@ -63,7 +63,7 @@ export const ModalBody = styled.div<ModalProps>`
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 1rem;
 
       stroke: ${({ theme }) => theme.colors.gray['500']};
     }

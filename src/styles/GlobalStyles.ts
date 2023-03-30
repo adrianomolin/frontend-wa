@@ -18,8 +18,9 @@ declare module 'styled-components' {
         '-400': string,
         '-300': string,
         '-200': string
-      }
+      },
     };
+    boxShadow: string
   }
 }
 
@@ -39,6 +40,7 @@ export const GlobalStyles = createGlobalStyle<{theme: DefaultTheme}>`
     background: #fafafa;
     color: #333;
     height: 100%;
+    font-size: 16px;
   }
 
   button {
@@ -72,5 +74,11 @@ export const GlobalStyles = createGlobalStyle<{theme: DefaultTheme}>`
   .container {
     display: flex;
     flex-direction: row;
+  }
+
+  @media only screen and (max-height: 900px) {
+    body {
+      font-size: 14px;
+    }
   }
 `;

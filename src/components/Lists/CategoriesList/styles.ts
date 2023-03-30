@@ -32,7 +32,7 @@ export const Table = styled.table`
 
   td, th {
     text-align: left;
-    padding: 16px;
+    padding: 1rem;
   }
 
   td:first-child, th:first-child {
@@ -73,7 +73,7 @@ export const Table = styled.table`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 16px;
+    gap: 1rem;
 
     button {
       height: 40px;
