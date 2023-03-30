@@ -1,11 +1,13 @@
+import { formatDate } from '../../../utils/formatDate';
+
+import { useOrders } from '../../../context/ordersContext';
+import { useModal } from '../../../context/modalContext';
+
 import { Table } from './styles';
 
 import filter from '../../../assets/icons/filter.svg';
 import editIcon from '../../../assets/icons/eye.svg';
 import deleteIcon from '../../../assets/icons/delete.svg';
-import { useOrders } from '../../../context/ordersContext';
-import { formatDate } from '../../../utils/formatDate';
-import { useModal } from '../../../context/modalContext';
 
 export function OrdersHistory() {
   const {

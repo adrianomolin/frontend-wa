@@ -1,7 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface ButtonProps {
-  active: boolean;
   width?: number;
 }
 
@@ -13,26 +12,21 @@ export default styled.button<ButtonProps>`
 
   font-weight: 700;
   color: ${({ theme }) => theme.colors.gray['0']};
+  background: ${({ theme }) => theme.colors.primary.main};
 
   border-radius: 44px;
+  transition: all ease-in .3s;
 
-  cursor: ${({ active }) => active ? 'pointer' : 'not-allowed'};
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary.light};
+  }
 
-  background: ${({ theme, active }) => active ? theme.colors.primary.main : theme.colors.gray['200']};
+  &:active {
+    background: ${({ theme }) => theme.colors.primary.dark};
+  }
 
-
-
-  transition: all ease-in .2s;
-
-  ${({ active }) => active && css`
-    &:hover {
-      background: ${({ theme }) => theme.colors.primary.light};
-      color: ${({ theme }) => theme.colors.gray['0']};
-    }
-
-    &:active {
-      background: ${({ theme }) => theme.colors.primary.dark};
-      color: ${({ theme }) => theme.colors.gray['0']};
-    }
-  `}
+  &[disabled] {
+    cursor: not-allowed;
+    background: ${({ theme }) => theme.colors.gray['200']};
+  }
 `;

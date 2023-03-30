@@ -1,5 +1,7 @@
-import { Product } from '../../types/Product';
 import { formatCurrency } from '../../utils/formatCurrency';
+
+import { Product } from '../../types/Product';
+
 import { Container, Content, Image } from './styles';
 
 interface ProductProps {
@@ -7,18 +9,18 @@ interface ProductProps {
 }
 
 export function ProductVisualizer({ product }: ProductProps) {
-  const { category } = product;
+  const { name, price, category, imagePath } = product;
 
   return (
     <Container>
-      <Image src={`http://localhost:3001/uploads/${product.imagePath}`} />
+      <Image src={imagePath} />
       <Content>
         <header>
           <div>{category.icon}</div>
           <div>{category.name}</div>
         </header>
-        <h1>{product.name}</h1>
-        <span>{formatCurrency(product.price)}</span>
+        <h1>{name}</h1>
+        <span>{formatCurrency(price)}</span>
       </Content>
     </Container>
   );

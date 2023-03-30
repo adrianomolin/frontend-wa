@@ -35,48 +35,44 @@ export function Authentication() {
     handleLogin(email, password);
   }
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <Container>
-      {
-        loading ? (
-          <Loader />
-        ) : (
-          <>
-            <Welcome>
+      <Welcome>
         Bem-vindo(a) ao
-            </Welcome>
+      </Welcome>
 
-            <Logo fontSize={32}/>
+      <Logo fontSize={32}/>
 
-            <Form onSubmit={handleSubmit}>
-              <FormGroup title="E-mail">
-                <Input
-                  value={email}
-                  placeholder='Seu e-mail de acesso'
-                  onChange={handleEmailInput}
-                />
-              </FormGroup>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup title="E-mail">
+          <Input
+            type='email'
+            value={email}
+            placeholder='Seu e-mail de acesso'
+            onChange={handleEmailInput}
+          />
+        </FormGroup>
 
-              <FormGroup title="Senha">
-                <Input
-                  value={password}
-                  placeholder='Informe sua senha'
-                  type='password'
-                  onChange={handlePasswordInput}
-                />
-              </FormGroup>
+        <FormGroup title="Senha">
+          <Input
+            type='password'
+            value={password}
+            placeholder='Informe sua senha'
+            onChange={handlePasswordInput}
+          />
+        </FormGroup>
 
-              <Button
-                type='submit'
-                active={active}
-                disabled={!active}
-              >
+        <Button
+          type='submit'
+          disabled={!active}
+        >
           Fazer login
-              </Button>
-            </Form>
-          </>
-        )
-      }
+        </Button>
+      </Form>
     </Container>
   );
 }

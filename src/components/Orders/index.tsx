@@ -1,6 +1,8 @@
-import { OrdersBoard } from '../OrdersBoard';
-import { Container } from './styles';
 import { useOrders } from '../../context/ordersContext';
+
+import { Container } from './styles';
+
+import { OrdersBoard } from '../OrdersBoard';
 import Loader from '../Loader';
 
 export function Orders() {

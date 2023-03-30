@@ -1,13 +1,14 @@
-import ReactDOM from 'react-dom';
-
 import { Overlay } from './styles';
+
+import ReactPortal from '../ReactPortal';
 
 export default function Loader() {
 
-  return ReactDOM.createPortal(
-    <Overlay>
-      <div className="loader" />
-    </Overlay>,
-    document.getElementById('loader-root')!,
+  return (
+    <ReactPortal containerId='loader-container'>
+      <Overlay>
+        <div className="loader" />
+      </Overlay>
+    </ReactPortal>
   );
 }

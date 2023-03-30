@@ -1,6 +1,8 @@
-import { Order } from '../../types/Order';
-import { Board, OrdersContainer } from './styles';
 import { useModal } from '../../context/modalContext';
+
+import { Order } from '../../types/Order';
+
+import { Board, OrdersContainer } from './styles';
 
 interface OrdersBoardProps {
   icon: string;

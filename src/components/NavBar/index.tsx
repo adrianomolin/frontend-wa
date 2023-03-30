@@ -1,13 +1,15 @@
+import { NavLink } from 'react-router-dom';
+
+import { useAuth } from '../../context/authContext';
+
 import { Container, Content, Logo, NavItem, Title } from './styles';
 
-import { NavLink } from 'react-router-dom';
 import { HomeIcon } from '../../assets/icons/home';
 import { OrderIcon } from '../../assets/icons/order';
 import { MenuIcon } from '../../assets/icons/menu';
 import { UsersIcon } from '../../assets/icons/users';
 import { ProfileIcon } from '../../assets/icons/profile';
 import { Logout } from '../../assets/icons/logout';
-import { useAuth } from '../../context/authContext';
 
 export function NavBar() {
   const { handleLogout } = useAuth();
