@@ -1,11 +1,14 @@
 import { FormEvent, useState } from 'react';
+
+import { useAuth } from '../../context/authContext';
+
+import { Container, Form, Welcome } from './styles';
+
+import { FormGroup } from '../../components/FormGroup';
+import { Logo } from '../../components/Logo';
+import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { Logo } from '../../components/Logo';
-import { Container, Form, Welcome } from './styles';
-import { FormGroup } from '../../components/FormGroup';
-import { useAuth } from '../../context/authContext';
-import Loader from '../../components/Loader';
 
 export function Authentication() {
   const [email, setEmail] = useState('');
