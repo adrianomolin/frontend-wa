@@ -5,7 +5,7 @@ interface HeaderProps {
 }
 
 export const HeaderContainer = styled.div`
-  margin: 72px 0 32px 0;
+  margin: 72px 0 2rem 0;
 
   display: flex;
   flex-direction: row;
@@ -13,13 +13,13 @@ export const HeaderContainer = styled.div`
   justify-content: flex-start;
 
   width: 100%;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray['-400']};
+  border-bottom: 0.0625rem solid ${({ theme }) => theme.colors.gray['-400']};
 `;
 
 export const NavItem = styled.div<HeaderProps>`
   padding: 1rem 40px;
 
-  border-radius: 8px 8px 0 0;
+  border-radius: 0.5rem 0.5rem 0 0;
   background: 'transparent';
   color: ${({ theme }) => theme.colors.gray['400']};
 

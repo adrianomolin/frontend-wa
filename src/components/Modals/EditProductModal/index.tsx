@@ -35,7 +35,7 @@ export function EditProductModal() {
   const [description, setDescription] = useState(product.description);
   const [price, setPrice] = useState(product.price);
   const [image, setImage] = useState<Blob>();
-  const [preview, setPreview] = useState(`http://localhost:3001/uploads/${product.imagePath}`);
+  const [preview, setPreview] = useState(product.imagePath);
   const [searchInput, setSearchInput] = useState('');
 
   const ingredients =
@@ -56,7 +56,7 @@ export function EditProductModal() {
   }
 
   useEffect(() => {
-    if (preview !== `http://localhost:3001/uploads/${product.imagePath}`) {
+    if (preview !== product.imagePath) {
       if (!image) {
         setPreview('');
         return;
@@ -156,7 +156,7 @@ export function EditProductModal() {
               <div className='product'>
                 <FormGroup title='Nome do Produto'>
                   <Input
-                    width={200}
+                    width='12.5'
                     value={name}
                     onChange={handleNameChange}
                     placeholder='Quatro Queijos'
@@ -165,7 +165,7 @@ export function EditProductModal() {
 
                 <FormGroup title='Valor'>
                   <Input
-                    width={200}
+                    width='12.5'
                     type='number'
                     value={price}
                     onChange={handlePriceChange}
@@ -176,7 +176,7 @@ export function EditProductModal() {
 
               <FormGroup title='Descrição'>
                 <Input
-                  width={416}
+                  width='26'
                   value={description}
                   onChange={handleDescriptionChange}
                   placeholder='Pizza de Quatro Queijos com borda tradicional'
@@ -218,7 +218,7 @@ export function EditProductModal() {
               </header>
               <FormGroup title='Busque o ingrediente'>
                 <Input
-                  width={416}
+                  width='26'
                   value={searchInput}
                   className='search-input'
                   onChange={handleSearchInput}
@@ -251,9 +251,8 @@ export function EditProductModal() {
 
           <Actions>
             <Button
-              active
               type="submit"
-              width={195}
+              width='12.1875'
             >
               Salvar Alterações
             </Button>

@@ -43,12 +43,12 @@ export const Overlay = styled.div<ModalProps>`
 
 export const ModalBody = styled.div<ModalProps>`
   background: ${({ theme }) => theme.colors.gray['0']};
-  min-width: 480px;
-  border-radius: 8px;
-  padding: 32px;
+  min-width: 30rem;
+  border-radius: 0.5rem;
+  padding: 2rem;
 
-  max-height: 966px;
-  min-height: 300px;
+  max-height: 60;
+  min-height: 18.75rem;
   animation: ${scaleIn} .3s forwards;
 
   ${({ isLeaving }) => isLeaving && css`animation: ${scaleOut} .2s forwards;`}
@@ -76,18 +76,18 @@ export const ModalBody = styled.div<ModalProps>`
   }
 
   .status-container {
-    margin-top: 32px;
+    margin-top: 2rem;
 
     small {
-      font-size: 14px;
+      font-size: 0.875rem;
       opacity: 0.8;
     }
 
     div {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 8px;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
     }
   }
 `;

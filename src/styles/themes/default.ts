@@ -25,5 +25,5 @@ export default {
     },
     brown: 'rgba(255, 171, 173, 0.3)',
   },
-  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.04)',
+  boxShadow: '0px 0.25rem 10px rgba(0, 0, 0, 0.04)',
 };

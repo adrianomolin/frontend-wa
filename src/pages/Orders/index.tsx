@@ -1,15 +1,10 @@
-import { OrdersHistory } from '../../components/Lists/OrdersHistoryList';
+import { OrdersHistory } from '../../components/OrdersHistory';
 import { Header } from '../../components/Header';
-import { ContentHeader } from '../../components/ContentHeader';
-import { useOrders } from '../../context/ordersContext';
-
-import Loader from '../../components/Loader';
 
 import { OrderIcon } from '../../assets/icons/order';
 import { Container, Content } from '../styles';
 
 export function Orders() {
-  const { orders } = useOrders();
   return (
     <Container>
       <Header
@@ -18,7 +13,6 @@ export function Orders() {
         description='Visualize pedidos anteriores'
       />
       <Content>
-        <ContentHeader title='Pedidos' length={orders.length}/>
         <OrdersHistory />
       </Content>
     </Container>

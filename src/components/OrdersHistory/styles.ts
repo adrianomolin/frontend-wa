@@ -1,41 +1,32 @@
 import styled from 'styled-components';
 
-export const HeaderButton = styled.button`
-  outline: 0;
-  background: transparent;
-  border: none;
-  color: ${({ theme }) => theme.colors.primary.main};
-  font-size: 14px;
-  font-weight: 600;
-`;
-
-
 export const Table = styled.table`
   flex: 1;
   width: 100%;
-  font-size: 14px;
+  font-size: 0.875rem;
   border-spacing: 0;
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.colors.gray['-400']};
+  border-collapse: separate;
+  border-radius: 0.5rem;
+  border: 0.0625rem solid ${({ theme }) => theme.colors.gray['-400']};
   overflow: hidden;
 
   td, th {
     text-align: left;
     padding: 1rem;
-    width: 31%;
+    width: 19%;
   }
 
-  button {
+  button, .filter button {
     outline: 0;
     background: transparent;
     border: none;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 0.875rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   tbody tr {
@@ -44,7 +35,7 @@ export const Table = styled.table`
   }
 
   tbody tr:nth-child(2n+2) {
-    outline: 1px solid ${({ theme }) => theme.colors.gray['-400']};;
+    outline: 0.0625rem solid ${({ theme }) => theme.colors.gray['-400']};;
   }
 
   thead tr {
@@ -71,3 +62,9 @@ export const Table = styled.table`
   }
 `;
 
+export const CenteredContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

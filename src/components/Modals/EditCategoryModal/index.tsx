@@ -20,7 +20,7 @@ export function EditCategoryModal() {
 
   const [icon, setIcon] = useState(category.icon);
   const [name, setName] = useState(category.name);
-  const [active, setActive] = useState(false);
+  const [, setActive] = useState(false);
 
 
   function handleIconInput(e: FormEvent<HTMLInputElement>) {
@@ -68,7 +68,7 @@ export function EditCategoryModal() {
               value={icon}
               type=''
               onChange={(e) => handleIconInput(e)}
-              width={408}
+              width='25.5'
               placeholder='Ex: 🧀'
             />
           </FormGroup>
@@ -77,7 +77,7 @@ export function EditCategoryModal() {
             <Input
               value={name}
               onChange={(e) => handleNameInput(e)}
-              width={408}
+              width='25.5'
               placeholder='Ex: Lanches'
             />
           </FormGroup>
@@ -92,9 +92,8 @@ export function EditCategoryModal() {
             </button>
 
             <Button
-              active={active}
               type="submit"
-              width={195}
+              width='12.1875'
             >
               Salvar Alterações
             </Button>

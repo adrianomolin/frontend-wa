@@ -1,17 +1,17 @@
 import styled, { css } from 'styled-components';
 
 interface InputProps {
-  width?: number,
+  width?: string,
   error?: string
 }
 
 export default styled.input<InputProps>`
   padding: 0 1rem;
-  height: 56px;
-  width: ${({ width }) => width ? width : 384 }px;
+  height: 3.5rem;
+  width: ${({ width }) => width ? width : 24 }rem;
 
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  border-radius: 0.5rem;
+  border: 0.0625rem solid ${({ theme }) => theme.colors.gray[200]};
 
   box-shadow: ${({ theme }) => theme.boxShadow};
 

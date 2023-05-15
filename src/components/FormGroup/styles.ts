@@ -8,8 +8,8 @@ const fadeIn = keyframes`
 export const Container = styled.div`
   .title {
     color: ${({ theme }) => theme.colors.gray['500']};
-    margin-bottom: 8px;
-    font-size: 14px;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
   }
 
   .error {
@@ -18,9 +18,9 @@ export const Container = styled.div`
     align-items: center;
     justify-content: flex-start;
 
-    gap: 4px;
+    gap: 0.25rem;
 
-    margin-top: 8px;
+    margin-top: 0.5rem;
 
     animation: ${fadeIn} .4s forwards;
   }
@@ -31,7 +31,7 @@ export const Container = styled.div`
 
   small {
     color: ${({ theme }) => theme.colors.primary.main};
-    font-size: 12px;
+    font-size: 0.75rem;
     display: block;
   }
 `;

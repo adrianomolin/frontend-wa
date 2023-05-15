@@ -14,19 +14,18 @@ export const HeaderButton = styled.button`
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.colors.primary.main};
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
 `;
-
 
 export const Table = styled.table`
   flex: 1;
   width: 100%;
-  font-size: 14px;
+  font-size: 0.875rem;
   border-spacing: 0;
   border-collapse: separate;
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.colors.gray['-400']};
+  border-radius: 0.5rem;
+  border: 0.0625rem solid ${({ theme }) => theme.colors.gray['-400']};
   overflow: hidden;
   table-layout: auto;
 
@@ -35,11 +34,12 @@ export const Table = styled.table`
     padding: 1rem;
   }
 
-  td:first-child, th:first-child {
-    width: 2.5%;
+  td:not(:last-child) , th:not(:last-child) {
+    max-width: 100%;
   }
-  td:nth-child(2), th:nth-child(2) {
-    width: 90%;
+
+  .categories td:first-child, .categories th:first-child {
+    width: 2.5%;
   }
 
   button {
@@ -47,12 +47,12 @@ export const Table = styled.table`
     background: transparent;
     border: none;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 0.875rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   tbody tr {
@@ -61,11 +61,21 @@ export const Table = styled.table`
   }
 
   tbody tr:nth-child(2n+2) {
-    outline: 1px solid ${({ theme }) => theme.colors.gray['-400']};;
+    outline: 0.0625rem solid ${({ theme }) => theme.colors.gray['-400']};;
   }
 
   thead tr {
     background: ${({ theme }) => theme.colors.gray['-200']}
+  }
+
+  td .image {
+    width: 3rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+  }
+
+  th:last-child, .actions {
+    width: 2.5%;
   }
 
   .actions {

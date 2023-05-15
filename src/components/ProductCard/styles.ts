@@ -5,8 +5,8 @@ interface ImageProps {
 }
 
 export const Container = styled.div`
-  border: 1px solid rgba(204, 204, 204, 0.4);
-  border-radius: 8px;
+  border: 0.0625rem solid rgba(204, 204, 204, 0.4);
+  border-radius: 0.5rem;
   height: 123px;
 
   width: 400px;
@@ -18,7 +18,7 @@ export const Container = styled.div`
   header {
     font-weight: 500;
     display: flex;
-    gap: 4px;
+    gap: 0.25rem;
   }
 
   h1 {
@@ -33,7 +33,7 @@ export const Image = styled.div<ImageProps>`
 
   width: 158px;
   height: 100%;
-  border-radius: 8px 0 0 8px;
+  border-radius: 0.5rem 0 0 0.5rem;
 `;
 
 export const Content = styled.div`
@@ -41,7 +41,7 @@ export const Content = styled.div`
   align-items: flex-start;
   flex-direction: column;
 
-  gap: 12px;
+  gap: 0.75rem;
 
   padding: 1rem;
 `;

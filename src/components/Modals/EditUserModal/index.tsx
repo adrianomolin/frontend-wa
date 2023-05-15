@@ -30,22 +30,40 @@ export function EditUserModal() {
 
         <Form>
           <FormGroup title="Nome">
-            <Input value={user.name} width={416}/>
+            <Input
+              value={user.name}
+              width='26'
+            />
           </FormGroup>
 
           <FormGroup title="E-mail">
-            <Input value={user.email} width={416}/>
+            <Input
+              value={user.email}
+              width='26'
+            />
           </FormGroup>
 
           <FormGroup title="Tipo">
             <Checkbox>
               <div className='checkbox'>
-                <Input checked={user.role === 'ADMIN' ? true : false} type="radio" id="admin" name="role" value="Admin" />
+                <Input
+                  checked={user.role === 'ADMIN' ? true : false}
+                  type="radio"
+                  id="admin"
+                  name="role"
+                  value="Admin"
+                />
                 <label htmlFor="admin" className='label'>Admin</label>
               </div>
 
               <div className='checkbox'>
-                <Input checked={user.role === 'ADMIN' ? false : true } type="radio" id="user" name="role" value="Garçom" />
+                <Input
+                  checked={user.role === 'USER' ? true : false }
+                  type="radio"
+                  id="user"
+                  name="role"
+                  value="Garçom"
+                />
                 <label htmlFor="user" className='label'>Garçom</label>
               </div>
             </Checkbox>
@@ -55,7 +73,9 @@ export function EditUserModal() {
       </Content>
 
       <Actions>
-        <Button active={false} width={416}>
+        <Button
+          width='26'
+        >
             Cadastrar usuários
         </Button>
       </Actions>

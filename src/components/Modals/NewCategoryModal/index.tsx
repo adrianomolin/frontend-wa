@@ -12,7 +12,7 @@ import { useCategories } from '../../../context/categoriesContext';
 export function NewCategoryModal() {
   const [icon, setIcon] = useState('');
   const [name, setName] = useState('');
-  const [active, setActive] = useState(false);
+  const [, setActive] = useState(false);
 
   const { handleCloseModal } = useModal();
   const { handleCreateNewCategory } = useCategories();
@@ -56,7 +56,7 @@ export function NewCategoryModal() {
               value={icon}
               type=''
               onChange={(e) => handleIconInput(e)}
-              width={408}
+              width='25.5'
               placeholder='Ex: 🧀'
             />
           </FormGroup>
@@ -65,16 +65,15 @@ export function NewCategoryModal() {
             <Input
               value={name}
               onChange={(e) => handleNameInput(e)}
-              width={408}
+              width='25.5'
               placeholder='Ex: Lanches'
             />
           </FormGroup>
 
           <Actions>
             <Button
-              active={active}
               type="submit"
-              width={195}
+              width='12.1875'
             >
               Salvar Alterações
             </Button>

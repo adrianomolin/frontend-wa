@@ -5,7 +5,7 @@ interface ImageProps {
 }
 
 export const Content = styled.div`
-  margin-top: 48px;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,11 +21,11 @@ export const Body = styled.div`
   align-items: flex-start;
   justify-content: center;
 
-  gap: 32px;
+  gap: 2rem;
 `;
 
 export const FormContent = styled.div`
-  width: 41rem;
+  width: 26rem;
 
   h2 {
     font-weight: 500;
@@ -38,11 +38,11 @@ export const FormContent = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
 
     button {
       font-weight: 500;
-      font-size: 14px;
+      font-size: 0.875rem;
       color: ${({ theme }) => theme.colors.primary.main}
 
     }
@@ -66,25 +66,25 @@ export const FormContent = styled.div`
   }
 
   small {
-    margin-top: 8px;
+    margin-top: 0.5rem;
     color: ${({ theme }) => theme.colors.gray['400']};
   }
 
   .category {
-    margin: 32px 0 1rem 0;
+    margin: 2rem 0 1rem 0;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 `;
 
 export const ImageContainer = styled.div`
-  width: 41rem;
-  height: 244px;
+  width: 26rem;
+  height: 15.25rem;
 
-  margin: 1rem 0 32px 0;
+  margin: 1rem 0 2rem 0;
 
-  border: 1px solid ${({ theme }) => theme.colors.gray['200']};
-  border-radius: 8px;
+  border: 0.0625rem solid ${({ theme }) => theme.colors.gray['200']};
+  border-radius: 0.5rem;
 
   input {
     overflow: hidden;
@@ -110,7 +110,7 @@ export const ImageContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 0.5rem;
     width: 100%;
     height: 34%;
     cursor: pointer;
@@ -127,8 +127,8 @@ export const Image = styled.div<ImageProps>`
   background-size: cover;
 
   width: 100%;
-  height: 160px;
-  border-radius: 8px 0 0 8px;
+  height: 10rem;
+  border-radius: 0.5rem 0 0 0.5rem;
 `;
 
 export const Categories = styled.div`
@@ -136,16 +136,16 @@ export const Categories = styled.div`
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 0.75rem;
 `;
 
 export const Category = styled.div``;
 
 export const IngredientsList = styled.div`
-  height: 476px;
+  height: 29.75rem;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
 
   overflow: auto;
   scroll-behavior: smooth;
@@ -154,8 +154,8 @@ export const IngredientsList = styled.div`
 export const Ingredient = styled.div`
   padding: 1rem;
 
-  border: 1px solid ${({ theme }) => theme.colors.gray['-300']};
-  border-radius: 8px;
+  border: 0.0625rem solid ${({ theme }) => theme.colors.gray['-300']};
+  border-radius: 0.5rem;
 
   display: flex;
   align-items: center;
@@ -170,7 +170,7 @@ export const Ingredient = styled.div`
 export const Name = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 `;
 
 export const Actions = styled.footer`
@@ -178,7 +178,7 @@ export const Actions = styled.footer`
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-end;
-  margin-top: 32px;
+  margin-top: 2rem;
 
   button:disabled {
     opacity: 0.5;

@@ -52,7 +52,7 @@ export const NavItem = styled.div`
       width: 24px;
       height: 24px;
 
-      margin-bottom: 12px;
+      margin-bottom: 0.75rem;
       stroke: ${({ theme }) => theme.colors.gray['400']};
       transition: all ease-in .2s;
     }
@@ -91,7 +91,7 @@ export const NavItem = styled.div`
       span {
         width: 1rem;
         height: 1.5px;
-        margin-top: 8px;
+        margin-top: 0.5rem;
         background: ${({ theme }) => theme.colors.primary.main};
         border-radius: 100%;
       }
@@ -104,5 +104,5 @@ export const NavItem = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 14px;
+  font-size: 0.875rem;
 `;

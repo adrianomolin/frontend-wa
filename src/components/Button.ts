@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 interface ButtonProps {
-  width?: number;
+  width?: string;
 }
 
 export default styled.button<ButtonProps>`
-  width: ${({ width }) => width ? width : 384 }px;
-  height: 44px;
+  width: ${({ width }) => width ? width : 24}rem;
+  height: 2.75rem;
   outline: none;
   border: none;
 
@@ -14,7 +14,7 @@ export default styled.button<ButtonProps>`
   color: ${({ theme }) => theme.colors.gray['0']};
   background: ${({ theme }) => theme.colors.primary.main};
 
-  border-radius: 44px;
+  border-radius: 2.75rem;
   transition: all ease-in .3s;
 
   &:hover {

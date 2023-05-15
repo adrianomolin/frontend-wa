@@ -92,7 +92,7 @@ export function NewUserModal() {
             <Input
               value={name}
               onChange={handleNameInput}
-              width={416}
+              width='26'
             />
           </FormGroup>
 
@@ -100,7 +100,7 @@ export function NewUserModal() {
             <Input
               value={email}
               onChange={handleEmailInput}
-              width={416}
+              width='26'
             />
           </FormGroup>
 
@@ -108,7 +108,9 @@ export function NewUserModal() {
             <Input
               value={password}
               onChange={handlePasswordInput}
-              type="password" width={416}/>
+              type="password"
+              width='26'
+            />
           </FormGroup>
 
           <FormGroup title="Tipo">
@@ -139,10 +141,11 @@ export function NewUserModal() {
 
 
           <Actions>
-            <Button type='submit'
-              active={active}
+            <Button
+              type='submit'
               disabled={!active}
-              width={416}>
+              width='26'
+            >
             Cadastrar usuários
             </Button>
           </Actions>

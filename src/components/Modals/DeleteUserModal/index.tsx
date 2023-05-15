@@ -30,11 +30,19 @@ export function DeleteUserModal() {
           Tem certeza que deseja excluir o usuário?
         <Form>
           <FormGroup title="Nome">
-            <Input disabled value={user.name} width={416}/>
+            <Input
+              disabled
+              value={user.name}
+              width='26'
+            />
           </FormGroup>
 
           <FormGroup title="E-mail">
-            <Input disabled value={user.email} width={416}/>
+            <Input
+              disabled
+              value={user.email}
+              width='26'
+            />
           </FormGroup>
         </Form>
 
@@ -50,10 +58,9 @@ export function DeleteUserModal() {
         </button>
 
         <Button
-          active
           type="button"
           className="primary"
-          width={170}
+          width='10.625'
         >
               Excluir usuário
         </Button>

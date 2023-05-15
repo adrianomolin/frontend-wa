@@ -78,7 +78,7 @@ export const GlobalStyles = createGlobalStyle<{theme: DefaultTheme}>`
 
   @media only screen and (max-height: 900px) {
     body {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 `;

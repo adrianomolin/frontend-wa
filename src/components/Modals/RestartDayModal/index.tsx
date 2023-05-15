@@ -49,9 +49,8 @@ export function RestartDayModal() {
         </button>
 
         <Button
-          active
           type="button"
-          width={195}
+          width='12.1875'
           onClick={handleResetDayOrders}
         >
               Sim, reiniciar o dia

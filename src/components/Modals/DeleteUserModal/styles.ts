@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Content = styled.div`
-  margin-top: 48px;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,12 +14,7 @@ export const Content = styled.div`
 `;
 
 export const Form = styled.form`
-  input {
-    width: 41rem;
-  }
-
   opacity: 0.6;
-
 `;
 
 export const Actions = styled.footer`
@@ -27,6 +22,6 @@ export const Actions = styled.footer`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 0.5rem;
 `;
 

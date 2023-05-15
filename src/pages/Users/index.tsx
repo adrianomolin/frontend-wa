@@ -1,6 +1,6 @@
 import { UsersIcon } from '../../assets/icons/users';
 import { Header } from '../../components/Header';
-import { UsersList } from '../../components/Lists/UsersList';
+import { Users as UsersList } from '../../components/Users';
 import { Container, Content } from '../styles';
 
 export function Users() {

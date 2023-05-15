@@ -12,17 +12,17 @@ export const Welcome = styled.div`
   font-weight: 500;
   color: ${({ theme }) => theme.colors.gray['500']};
   opacity: 0.9;
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
 `;
 
 export const Form = styled.form`
-  margin-top: 32px;
+  margin-top: 2rem;
 
   input {
     width: 384px;
   }
 
   button {
-    margin-top: 32px;
+    margin-top: 2rem;
   }
 `;

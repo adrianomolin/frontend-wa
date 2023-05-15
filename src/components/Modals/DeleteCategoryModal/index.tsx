@@ -52,9 +52,8 @@ export function DeleteCategoryModal() {
         </button>
 
         <Button
-          active
           type="button"
-          width={187}
+          width='11.6875'
           onClick={deleteCategory}
         >
               Excluir categoria

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Content = styled.div`
-  margin-top: 48px;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,7 +16,7 @@ export const Actions = styled.footer`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 48px;
+  margin-top: 3rem;
 
   button:disabled {
     opacity: 0.5;

@@ -52,9 +52,8 @@ export function DeleteProductModal() {
         </button>
 
         <Button
-          active
           type="button"
-          width={187}
+          width='11.6875'
           onClick={deleteProduct}
         >
               Excluir produto

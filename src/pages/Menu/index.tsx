@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { MenuIcon } from '../../assets/icons/menu';
-import { Header } from '../../components/Header';
+
 import { Container, Content } from '../styles';
 import { HeaderContainer, NavItem } from './styles';
-import { ProductsList } from '../../components/Lists/ProductsList';
+
+import { MenuIcon } from '../../assets/icons/menu';
+
+import { Header } from '../../components/Header';
 import Loader from '../../components/Loader';
-import { CategoriesList } from '../../components/Lists/CategoriesList';
+import { Categories } from '../../components/Categories';
+import { Products } from '../../components/Products';
 
 export function Menu() {
   const [selectedTab, setSelectedTab] = useState<'Products' | 'Categories'>('Products');
@@ -36,8 +39,8 @@ export function Menu() {
           </button>
         </HeaderContainer>
 
-        { selectedTab === 'Products' ? <ProductsList />
-          : selectedTab === 'Categories' ? <CategoriesList />
+        { selectedTab === 'Products' ? <Products />
+          : selectedTab === 'Categories' ? <Categories />
             : <Loader />
         }
       </Content>

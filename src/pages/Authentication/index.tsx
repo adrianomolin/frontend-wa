@@ -26,7 +26,7 @@ export function Authentication() {
   function handleEmailInput(event: FormEvent<HTMLInputElement>) {
     setEmail(event.currentTarget.value);
 
-    if (!event.currentTarget.value || !isEmailValid(email)) {
+    if (!event.currentTarget.value) {
       setError({ fieldName: 'email', message: 'Insira um e-mail válido.' });
     } else {
       removeError('email');
@@ -45,6 +45,12 @@ export function Authentication() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+
+    if (!isEmailValid(email)) {
+      setError({ fieldName: 'email', message: 'Insira um e-mail válido.' });
+    } else {
+      removeError('email');
+    }
 
     if (isFormValid) {
       setLoading(true);

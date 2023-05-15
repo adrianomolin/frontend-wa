@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.header`
   display: flex;
   justify-content: space-between;
-  height: 72px;
+  height: 4.5rem;
   align-items: center;
 `;
 
@@ -19,7 +19,7 @@ export const Content = styled.div`
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 8px;
+      gap: 0.5rem;
     }
 
     svg {

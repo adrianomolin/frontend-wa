@@ -35,11 +35,11 @@ export function NewProductModal() {
   const { handleCreateNewProduct } = useProducts();
 
   const ingredients =
-  (searchInput.length > 0) ? (
-    IngredientsInitial.filter(ingredient => (
-      ingredient.name.match(searchInput)
-    ))
-  ) : IngredientsInitial;
+        (searchInput.length > 0) ? (
+          IngredientsInitial.filter(ingredient => (
+            ingredient.name.match(searchInput)
+          ))
+        ) : IngredientsInitial;
 
   function handleImageChange(e: FormEvent<HTMLInputElement>) {
     if (!e.currentTarget.files || e.currentTarget.files.length === 0) {
@@ -63,7 +63,7 @@ export function NewProductModal() {
 
   useEffect(() => {
     selectedIngredients.length <= 0 || !price || !description || !image || !description ? setActive(false) : setActive(true);
-  },[selectedIngredients, description, name, price, description, image]);
+  }, [selectedIngredients, description, name, price, description, image]);
 
   function handleNameChange(e: FormEvent<HTMLInputElement>) {
     const { value } = e.currentTarget;
@@ -119,7 +119,7 @@ export function NewProductModal() {
     <>
       <header>
         <strong>
-          Novo Produto
+                    Novo Produto
         </strong>
 
         <button type="button">
@@ -152,7 +152,7 @@ export function NewProductModal() {
               <div className='product'>
                 <FormGroup title='Nome do Produto'>
                   <Input
-                    width={200}
+                    width='12.5'
                     value={name}
                     onChange={handleNameChange}
                     placeholder='Quatro Queijos'
@@ -161,7 +161,7 @@ export function NewProductModal() {
 
                 <FormGroup title='Valor'>
                   <Input
-                    width={200}
+                    width='12.5'
                     type='number'
                     value={price}
                     onChange={handlePriceChange}
@@ -172,7 +172,7 @@ export function NewProductModal() {
 
               <FormGroup title='Descrição'>
                 <Input
-                  width={416}
+                  width='26'
                   value={description}
                   onChange={handleDescriptionChange}
                   placeholder='Pizza de Quatro Queijos com borda tradicional'
@@ -209,12 +209,12 @@ export function NewProductModal() {
                   type='button'
                   onClick={() => handleUseModal('NewIngredient')}
                 >
-                  Novo Ingrediente
+                                    Novo Ingrediente
                 </button>
               </header>
               <FormGroup title='Busque o ingrediente'>
                 <Input
-                  width={416}
+                  width='26'
                   value={searchInput}
                   className='search-input'
                   onChange={handleSearchInput}
@@ -246,12 +246,11 @@ export function NewProductModal() {
 
           <Actions>
             <Button
-              active={active}
               disabled={!active}
               type="submit"
-              width={195}
+              width='12.1875'
             >
-              Salvar Alterações
+                            Salvar Alterações
             </Button>
           </Actions>
         </Form>

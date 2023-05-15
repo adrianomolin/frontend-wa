@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
+
 import { Container } from './styles';
 
 import info from '../../assets/icons/info.svg';
+
 interface FormGroupProps {
   children: ReactNode,
   error?: string,
