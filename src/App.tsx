@@ -6,7 +6,7 @@ import { GlobalStyles } from './view/styles/GlobalStyles';
 import defaultTheme from './view/styles/themes/default';
 import { ThemeProvider } from 'styled-components';
 
-import { Routes } from './routes/Routes';
+import { Routes } from './Router/Routes';
 
 export function App() {
   return (
