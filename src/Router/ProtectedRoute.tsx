@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../app/context/authContext';
 
 interface ProtectedRouteProps {
   children: ReactNode
@@ -8,7 +7,6 @@ interface ProtectedRouteProps {
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   function checkUserToken() {
