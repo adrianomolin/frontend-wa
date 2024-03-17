@@ -1,14 +1,15 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URI,
 });
 
 api.interceptors.request.use(config => {
-  config.headers.set('Demo', import.meta.env.VITE_IS_DEMO);
+  config.headers.set('demo', import.meta.env.VITE_IS_DEMO);
 
   return config;
-})
+});
 
 api.interceptors.response.use(response => {
   return response;
@@ -17,7 +18,7 @@ api.interceptors.response.use(response => {
     localStorage.removeItem('token');
     sessionStorage.removeItem('user');
 
-    window.location.reload();
+    toast.error('Sessão expirada, faça login novamente');
   }
   return error;
 });
