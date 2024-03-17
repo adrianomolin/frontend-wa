@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import { Ingredient } from '../types/Ingredient';
 import { api } from '../utils/api';
 import { toast } from 'react-toastify';
@@ -19,7 +19,7 @@ interface IngredientProviderProps {
   children: ReactNode,
 }
 
-const IngredientsContext = createContext({} as IngredientContextProps);
+export const IngredientsContext = createContext({} as IngredientContextProps);
 
 export function IngredientsProvider({ children }: IngredientProviderProps) {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -61,8 +61,3 @@ export function IngredientsProvider({ children }: IngredientProviderProps) {
   );
 }
 
-export function useIngredients() {
-  const context = useContext(IngredientsContext);
-
-  return context;
-}

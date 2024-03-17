@@ -1,19 +1,19 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import { api } from '../utils/api';
-import { UserProps } from '../types/User';
+import { User } from '../types/User';
 
 interface UsersContextProps {
-  users: UserProps[],
+  users: User[],
 }
 
 interface UserProviderProps {
   children: ReactNode,
 }
 
-const UsersContext = createContext({} as UsersContextProps);
+export const UsersContext = createContext({} as UsersContextProps);
 
 export function UsersProvider({ children }: UserProviderProps) {
-  const [users, setUsers] = useState<UserProps[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     api.get('/users').then(({data}) => {
@@ -29,10 +29,4 @@ export function UsersProvider({ children }: UserProviderProps) {
       {children}
     </UsersContext.Provider>
   );
-}
-
-export function useUsers() {
-  const context = useContext(UsersContext);
-
-  return context;
 }

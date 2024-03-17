@@ -1,22 +1,18 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
-import socketIo from 'socket.io-client';
+import { ReactNode, createContext, useEffect, useState } from 'react';
+// import socketIo from 'socket.io-client';
 import { Order } from '../types/Order';
 import { api } from '../utils/api';
 import { toast } from 'react-toastify';
 import { formatCurrency } from '../utils/formatCurrency';
-import { useModal } from './modalContext';
 
 interface OrdersContextProps {
   orders: Order[],
   dayOrders: Order[],
   selectedOrder: Order | null,
-  isModalVisible: boolean,
   isLoading: boolean,
   getProductsName: (order: Order) => string[],
   getCategoriesName: (order: Order) => string[],
   getTotal: (order: Order) => string,
-  handleCloseModal: () => void,
-  handleOpenModal: (order: Order) => void,
   changeSelectedOrder: (order: Order) => void,
   changeOrderStatus: () => void,
   resetDayOrders: () => void,
@@ -28,12 +24,11 @@ interface OrdersProviderProps {
   children: ReactNode
 }
 
-const OrdersContext = createContext({} as OrdersContextProps);
+export const OrdersContext = createContext({} as OrdersContextProps);
 
 export function OrdersProvider({ children }: OrdersProviderProps) {
   const [dayOrders, setDayOrders] = useState<Order[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,16 +47,16 @@ export function OrdersProvider({ children }: OrdersProviderProps) {
   }, []);
 
   useEffect(() => {
-    const socket = socketIo('http://localhost:3001', {
-      transports: ['websocket'],
-    });
+    // const socket = socketIo('http://localhost:3001', {
+    //   transports: ['websocket'],
+    // });
 
-    socket.on('orders@new', (order) => {
-      setDayOrders(prevState => prevState.includes(order)
-        ? prevState
-        : prevState.concat(order)
-      );
-    });
+    // socket.on('orders@new', (order) => {
+    //   setDayOrders(prevState => prevState.includes(order)
+    //     ? prevState
+    //     : prevState.concat(order)
+    //   );
+    // });
 
   },[]);
 
@@ -109,23 +104,13 @@ export function OrdersProvider({ children }: OrdersProviderProps) {
   }
 
   function changeSelectedOrder(order: Order) {
-    setSelectedOrder(order)
-  }
-
-  function handleOpenModal(order: Order) {
     setSelectedOrder(order);
-    setIsModalVisible(true);
-  }
-
-  function handleCloseModal() {
-    setSelectedOrder(null);
-    setIsModalVisible(false);
   }
 
   async function changeOrderStatus() {
     setIsLoading(true);
 
-    if (!selectedOrder) return toast.error('Selecione um pedido para alterar o status!')
+    if (!selectedOrder) return toast.error('Selecione um pedido para alterar o status!');
 
     const status = selectedOrder?.status === 'WAITING'
       ? 'IN_PRODUCTION'
@@ -140,8 +125,6 @@ export function OrdersProvider({ children }: OrdersProviderProps) {
         ? { ...order, status}
         : order
     )));
-
-    handleCloseModal();
   }
 
   async function resetDayOrders() {
@@ -181,13 +164,10 @@ export function OrdersProvider({ children }: OrdersProviderProps) {
       orders,
       dayOrders,
       selectedOrder,
-      isModalVisible,
       isLoading,
       getProductsName,
       getCategoriesName,
       getTotal,
-      handleCloseModal,
-      handleOpenModal,
       changeOrderStatus,
       changeSelectedOrder,
       resetDayOrders,
@@ -199,8 +179,3 @@ export function OrdersProvider({ children }: OrdersProviderProps) {
   );
 }
 
-export function useOrders() {
-  const context = useContext(OrdersContext);
-
-  return context;
-}

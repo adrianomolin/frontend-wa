@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import { api } from '../utils/api';
 import { Category } from '../types/Category';
 import { toast } from 'react-toastify';
@@ -20,7 +20,7 @@ interface CategoriesProviderProps {
   children: ReactNode,
 }
 
-const CategoriesContext = createContext({} as CategoriesContextProps);
+export const CategoriesContext = createContext({} as CategoriesContextProps);
 
 export function CategoriesProvider({ children }: CategoriesProviderProps) {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -85,8 +85,3 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
   );
 }
 
-export function useCategories() {
-  const context = useContext(CategoriesContext);
-
-  return context;
-}

@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
-import { UserProps } from '../types/User';
+import { ReactNode, createContext, useEffect, useState } from 'react';
+import { User } from '../types/User';
 
 import { useNavigate } from 'react-router-dom';
 import { api } from '../utils/api';
@@ -14,7 +14,7 @@ interface NewUserProps {
 }
 
 interface AuthContextProps {
-  user: UserProps | null,
+  user: User | null,
   handleLogin: (email: string, password: string) => Promise<void>,
   handleLogout: () => void;
   handleCreateNewUser: (newUser: NewUserProps) => Promise<void>;
@@ -24,12 +24,12 @@ interface AuthProviderProps {
   children: ReactNode
 }
 
-const AuthContext = createContext({} as AuthContextProps);
+export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<null | UserProps>(null);
+  const [user, setUser] = useState<null | User>(null);
 
   const navigate = useNavigate();
 
@@ -52,6 +52,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function handleLogin(email: string, password: string) {
     const { data } = await api.post('auth', { email, password });
+
+    if (!data || !data.user) {
+      toast.error('Ocorreu um erro ao fazer login');
+      return;
+    }
 
     setUser(data.user);
     localStorage.setItem('user', JSON.stringify(data.user));
@@ -98,8 +103,4 @@ export function AuthProvider({ children }: AuthProviderProps) {
   );
 }
 
-export function useAuth() {
-  const context = useContext(AuthContext);
 
-  return context;
-}
