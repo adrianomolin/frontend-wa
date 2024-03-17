@@ -10,4 +10,5 @@ export interface Order {
     quantity: number;
     product: Product;
   }[];
+  total: string;
 }
