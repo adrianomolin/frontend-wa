@@ -1,0 +1,63 @@
+import { Actions, Content } from './styles';
+
+import closeIcon from '../../../assets/icons/close-icon.svg';
+import { useProducts } from '../../../../../../../app/hooks/useProducts';
+import { ProductVisualizer } from '../../../../../../components/ProductCard';
+import Button from '../../../../../../components/Button';
+
+export function DeleteProductModal() {
+  const { handleCloseModal, selectedModalProps } = useModal();
+  const { handleDeleteProduct } = useProducts();
+  const { product } = selectedModalProps;
+
+  if (!product) {
+    return null;
+  }
+
+  function deleteProduct() {
+    handleCloseModal();
+    handleDeleteProduct(product!._id);
+  }
+
+  return (
+    <>
+      <header>
+        <strong>
+        Excluir Produto
+        </strong>
+
+        <button type="button">
+          <img src={closeIcon} alt="Fechar" onClick={handleCloseModal} />
+        </button>
+      </header>
+
+      <Content>
+
+        <div className="content-items">
+            Tem certeza que deseja excluir este produto?
+        </div>
+        <div>
+          <ProductVisualizer product={product} />
+        </div>
+      </Content>
+
+      <Actions>
+        <button
+          type="button"
+          className="secondary"
+          onClick={handleCloseModal}
+        >
+              Manter produto
+        </button>
+
+        <Button
+          type="button"
+          width='11.6875'
+          onClick={deleteProduct}
+        >
+              Excluir produto
+        </Button>
+      </Actions>
+    </>
+  );
+}
