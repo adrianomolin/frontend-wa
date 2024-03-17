@@ -1,7 +1,5 @@
 import { NavLink } from 'react-router-dom';
 
-import { useAuth } from '../../../app/context/authContext';
-
 import { Container, Content, Logo, NavItem, Title } from './styles';
 
 import { HomeIcon } from '../../../assets/icons/home';
@@ -10,6 +8,7 @@ import { MenuIcon } from '../../../assets/icons/menu';
 import { UsersIcon } from '../../../assets/icons/users';
 import { ProfileIcon } from '../../../assets/icons/profile';
 import { Logout } from '../../../assets/icons/logout';
+import { useAuth } from '../../../app/hooks/useAuth';
 
 export function NavBar() {
   const { handleLogout } = useAuth();
@@ -29,7 +28,7 @@ export function NavBar() {
           </NavItem>
 
           <NavItem>
-            <NavLink to='/orders'>
+            <NavLink to='/history'>
               <OrderIcon />
               <Title>Histórico</Title>
               <span />

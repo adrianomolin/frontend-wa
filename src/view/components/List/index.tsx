@@ -2,7 +2,7 @@ import { Container, HeaderButton, Table } from './styles';
 
 import { ContentHeader } from '../ContentHeader';
 import { ReactNode } from 'react';
-import filter from '../../assets/icons/filter.svg';
+import filter from '../../../assets/icons/filter.svg';
 
 export interface ListProps {
   header: {

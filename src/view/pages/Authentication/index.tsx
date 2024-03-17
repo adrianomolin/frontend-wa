@@ -1,7 +1,5 @@
 import { FormEvent, useState } from 'react';
 
-import { useAuth } from '../../../app/context/authContext';
-
 import { Container, Form, Welcome } from './styles';
 
 import { FormGroup } from '../../components/FormGroup';
@@ -11,6 +9,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { useErrors } from '../../../app/hooks/useErrors';
 import isEmailValid from '../../../app/utils/isEmailValid';
+import { useAuth } from '../../../app/hooks/useAuth';
 
 export function Authentication() {
   const [email, setEmail] = useState('');
