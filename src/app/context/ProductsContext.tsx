@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import { api } from '../utils/api';
 import { Product } from '../types/Product';
 import { toast } from 'react-toastify';
@@ -14,7 +14,7 @@ interface ProductsProviderProps {
   children: ReactNode,
 }
 
-const ProductsContext = createContext({} as ProductsContextProps);
+export const ProductsContext = createContext({} as ProductsContextProps);
 
 export function ProductsProvider({ children }: ProductsProviderProps) {
   const [products, setProducts] = useState<Product[]>([]);
@@ -77,8 +77,3 @@ export function ProductsProvider({ children }: ProductsProviderProps) {
   );
 }
 
-export function useProducts() {
-  const context = useContext(ProductsContext);
-
-  return context;
-}
