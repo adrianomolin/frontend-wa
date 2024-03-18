@@ -12,9 +12,8 @@ import { Category } from '@components/Category';
 import { Modal } from '@view/components/Modal';
 
 import { useProductsModalController } from '../useProductsModalController';
-import { Product } from '@app/types/Product';
 
-export function EditProductModal({ selectedProduct }: { selectedProduct: Product}) {
+export function EditProductModal() {
   const {
     product,
     ingredients,
@@ -24,8 +23,9 @@ export function EditProductModal({ selectedProduct }: { selectedProduct: Product
     handleSearchInput,
     handleCheckboxChange,
     handleCloseEditProductModal,
-    handleInputChange
-  } = useProductsModalController(selectedProduct);
+    handleInputChange,
+    selectedProduct
+  } = useProductsModalController();
 
   const [preview, setPreview] = useState(selectedProduct?.imagePath ?? '');
 

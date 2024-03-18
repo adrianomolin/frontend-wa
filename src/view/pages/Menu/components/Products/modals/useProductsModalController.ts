@@ -3,7 +3,6 @@ import { useIngredients } from '@app/hooks/useIngredients';
 import { useCategories } from '@app/hooks/useCategories';
 import { useProducts } from '@app/hooks/useProducts';
 import { Ingredient } from '@app/types/Ingredient';
-import { Product } from '@app/types/Product';
 
 import { useProductsController } from '../../ProductsContext/useProductsController';
 
@@ -16,7 +15,7 @@ type ProductProps = {
   image: Blob | null;
 }
 
-export function useProductsModalController(productBeingEdited?: Product) {
+export function useProductsModalController() {
   const {
     isCreateProductModalOpen,
     isEditProductModalOpen,
@@ -37,12 +36,12 @@ export function useProductsModalController(productBeingEdited?: Product) {
   const ingredients = IngredientsInitial?.filter(ingredient => (ingredient.name.match(searchInput)));
 
   const [product, setProduct] = useState<ProductProps>({
-    name: productBeingEdited?.name ?? '',
-    description: productBeingEdited?.description ?? '',
-    price: productBeingEdited?.price ?? 0,
-    category: productBeingEdited?.category._id ?? '',
-    ingredients: productBeingEdited?.ingredients.map((value) => value.ingredient._id) ?? [],
-    image: productBeingEdited?.imagePath ? new Blob() : null,
+    name: selectedProduct?.name ?? '',
+    description: selectedProduct?.description ?? '',
+    price: selectedProduct?.price ?? 0,
+    category: selectedProduct?.category._id ?? '',
+    ingredients: selectedProduct?.ingredients.map((value) => value.ingredient._id) ?? [],
+    image: selectedProduct?.imagePath ? new Blob() : null,
   });
 
   function handleInputChange(input: keyof ProductProps, value: typeof product[keyof ProductProps]) {
