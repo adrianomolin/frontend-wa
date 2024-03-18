@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useEffect } from 'react';
+import { ReactElement, ReactNode, useEffect, useRef } from 'react';
 import ReactPortal from '../ReactPortal';
 
 import closeIcon from '../../../assets/icons/close-icon.svg';
@@ -13,9 +13,11 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, title, children }: ModalProps) {
+  const ModalRef = useRef(null as HTMLElement | null);
+
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      e.key === 'Escape' && onClose();
+      if (e.key === 'Escape') onClose();
     }
 
     document.addEventListener('keydown', handleKeyDown);
@@ -24,9 +26,10 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     };
   }, [isOpen, onClose]);
 
-  function handleClose() {
-    console.log('close');
-    onClose();
+  function handleClickOnOutsideArea(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (!ModalRef.current?.querySelector('.modal-body')?.contains(e.target as Node)) {
+      onClose();
+    }
   }
 
   return (
@@ -37,9 +40,11 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => handleClose()}
+            ref={ModalRef}
+            onClick={handleClickOnOutsideArea}
           >
             <ModalBody
+              className='modal-body'
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
