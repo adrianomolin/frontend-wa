@@ -10,8 +10,12 @@ import { ProfileIcon } from '../../../assets/icons/profile';
 import { Logout } from '../../../assets/icons/logout';
 import { useAuth } from '../../../app/hooks/useAuth';
 
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+
 export function NavBar() {
   const { handleLogout } = useAuth();
+  const [activeBar, setActiveBar] = useState<'home' | 'history' | 'menu' | 'users' | 'profile'>('home');
 
   return(
     <Container>
@@ -20,44 +24,64 @@ export function NavBar() {
       <Content>
         <div>
           <NavItem>
-            <NavLink to='/' end>
+            <NavLink to='/' end onClick={() => setActiveBar('home')}>
               <HomeIcon />
               <Title>Home</Title>
-              <span />
+              {activeBar === 'home' && <motion.span
+                initial={{ width: 0 }}
+                animate={{ width: 32 }}
+                transition={{ duration: 0.5 }}
+              />}
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink to='/history'>
+            <NavLink to='/history' onClick={() => setActiveBar('history')}>
               <OrderIcon />
               <Title>Histórico</Title>
-              <span />
+              {activeBar === 'history' && <motion.span
+                initial={{ width: 0 }}
+                animate={{ width: 32 }}
+                transition={{ duration: 0.5 }}
+              />}
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink to='/menu'>
+            <NavLink to='/menu' onClick={() => setActiveBar('menu')}>
               <MenuIcon />
               <Title>Cardápio</Title>
-              <span />
+              {activeBar === 'menu' && <motion.span
+                initial={{ width: 0 }}
+                animate={{ width: 32 }}
+                transition={{ duration: 0.5 }}
+              />}
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink to='/users'>
+            <NavLink to='/users' onClick={() => setActiveBar('users')}>
               <UsersIcon />
               <Title>Usuários</Title>
-              <span />
+              {activeBar === 'users' && <motion.span
+                initial={{ width: 0 }}
+                animate={{ width: 32 }}
+                transition={{ duration: 0.5 }}
+              />}
             </NavLink>
           </NavItem>
         </div>
 
         <div>
           <NavItem>
-            <NavLink to='/profile'>
+            <NavLink to='/profile' onClick={() => setActiveBar('profile')}>
               <ProfileIcon />
               <Title>Perfil</Title>
-              <span />
+              {activeBar === 'profile' && <motion.span
+                initial={{ width: 0 }}
+                animate={{ width: 32 }}
+                transition={{ duration: 0.5 }}
+              />}
             </NavLink>
           </NavItem>
 

@@ -85,16 +85,16 @@ export const NavItem = styled.div`
       }
     }
 
+    span {
+      width: 1rem;
+      height: 1.5px;
+      margin-top: 0.5rem;
+      background: ${({ theme }) => theme.colors.primary.main};
+      border-radius: 100%;
+    }
+
     &.active{
       color: ${({ theme }) => theme.colors.primary.main};
-
-      span {
-        width: 1rem;
-        height: 1.5px;
-        margin-top: 0.5rem;
-        background: ${({ theme }) => theme.colors.primary.main};
-        border-radius: 100%;
-      }
 
       svg {
         stroke: ${({ theme }) => theme.colors.primary.main};
