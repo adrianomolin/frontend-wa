@@ -1,38 +1,23 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 
-import Button from '../../../../../../components/Button';
-import Input from '../../../../../../components/Input';
-import { FormGroup } from '../../../../../../components/FormGroup';
+import Button from '@components/Button';
+import Input from '@components/Input';
+import { FormGroup } from '@components/FormGroup';
 
 import { Actions, Content, Form } from './styles';
-import { useCategories } from '../../../../../../../app/hooks/useCategories';
-import { useCategoriesController } from '../../useCategoriesController';
-import { Modal } from '../../../../../../components/Modal';
+import { Modal } from '@components/Modal';
+import { useCategoriesModalController } from '../useCategoriesModaController';
 
 export function NewCategoryModal() {
-  const [icon, setIcon] = useState('');
-  const [name, setName] = useState('');
-  const [, setActive] = useState(false);
+  const {
+    category,
+    handleInputChange,
+    handleCloseCreateCategoryModal,
+    isCreateCategoryModalOpen
+  } = useCategoriesModalController();
 
-  const { handleCloseCreateCategoryModal, isCreateCategoryModalOpen } = useCategoriesController();
-  const { handleCreateNewCategory } = useCategories();
-
-  function handleIconInput(e: FormEvent<HTMLInputElement>) {
-    setIcon(e.currentTarget.value);
-    !e.currentTarget.value || !name ? setActive(false) : setActive(true);
-  }
-
-  function handleNameInput(e: FormEvent<HTMLInputElement>) {
-    setName(e.currentTarget.value);
-    !e.currentTarget.value || !icon ? setActive(false) : setActive(true);
-  }
   function handleCreate(event: FormEvent) {
     event.preventDefault();
-
-    handleCreateNewCategory({
-      icon,
-      name
-    });
 
     handleCloseCreateCategoryModal();
   }
@@ -43,9 +28,9 @@ export function NewCategoryModal() {
         <Form onSubmit={handleCreate}>
           <FormGroup title='Emoji'>
             <Input
-              value={icon}
+              value={category.icon}
               type=''
-              onChange={(e) => handleIconInput(e)}
+              onChange={(e) => handleInputChange('icon', e.currentTarget.value)}
               width='25.5'
               placeholder='Ex: 🧀'
             />
@@ -53,8 +38,8 @@ export function NewCategoryModal() {
 
           <FormGroup title='Nome da Categoria'>
             <Input
-              value={name}
-              onChange={(e) => handleNameInput(e)}
+              value={category.name}
+              onChange={(e) => handleInputChange('name', e.currentTarget.value)}
               width='25.5'
               placeholder='Ex: Lanches'
             />

@@ -13,53 +13,59 @@ import { ProductsContext, ProductsProvider } from './components/ProductsContext'
 import { NewProductModal } from './components/Products/modals/NewProductModal';
 import { EditProductModal } from './components/Products/modals/EditProductModal';
 import { DeleteProductModal } from './components/Products/modals/DeleteProductModal';
+import { CategoriesProvider } from './components/Categories/CategoriesContext';
+import { NewCategoryModal } from './components/Categories/modals/NewCategoryModal';
 
 export function Menu() {
   const [selectedTab, setSelectedTab] = useState<'Products' | 'Categories'>('Products');
 
   return (
-    <ProductsProvider>
-      <ProductsContext.Consumer>
-        {({ selectedProduct }) => (
-          <>
-            <Container>
-              <Header
-                icon={<MenuIcon />}
-                title='Cardápio'
-                description='Gerencie os produtos do seu estabelecimento'
-              />
-              <Content>
-                <HeaderContainer>
-                  <button
-                    onClick={() => setSelectedTab('Products')}
-                  >
-                    <NavItem active={selectedTab === 'Products'}>
+    <CategoriesProvider>
+      <ProductsProvider>
+        <ProductsContext.Consumer>
+          {({ selectedProduct }) => (
+            <>
+              <Container>
+                <Header
+                  icon={<MenuIcon />}
+                  title='Cardápio'
+                  description='Gerencie os produtos do seu estabelecimento'
+                />
+                <Content>
+                  <HeaderContainer>
+                    <button
+                      onClick={() => setSelectedTab('Products')}
+                    >
+                      <NavItem active={selectedTab === 'Products'}>
                       Produtos
-                    </NavItem>
-                  </button>
+                      </NavItem>
+                    </button>
 
-                  <button
-                    onClick={() => setSelectedTab('Categories')}
-                  >
-                    <NavItem active={selectedTab === 'Categories'}>
+                    <button
+                      onClick={() => setSelectedTab('Categories')}
+                    >
+                      <NavItem active={selectedTab === 'Categories'}>
                       Categorias
-                    </NavItem>
-                  </button>
-                </HeaderContainer>
+                      </NavItem>
+                    </button>
+                  </HeaderContainer>
 
-                { selectedTab === 'Products' ? <ProductsList />
-                  : selectedTab === 'Categories' ? <CategoriesList />
-                    : <Loader />
-                }
-              </Content>
-            </Container>
+                  { selectedTab === 'Products' ? <ProductsList />
+                    : selectedTab === 'Categories' ? <CategoriesList />
+                      : <Loader />
+                  }
+                </Content>
+              </Container>
 
-            <NewProductModal />
-            {selectedProduct && <EditProductModal selectedProduct={selectedProduct} />}
-            <DeleteProductModal />
-          </>
-        )}
-      </ProductsContext.Consumer>
-    </ProductsProvider>
+              <NewProductModal />
+              {selectedProduct && <EditProductModal />}
+              <DeleteProductModal />
+            </>
+          )}
+        </ProductsContext.Consumer>
+      </ProductsProvider>
+
+      <NewCategoryModal />
+    </CategoriesProvider>
   );
 }

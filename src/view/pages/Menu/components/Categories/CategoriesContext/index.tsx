@@ -1,14 +1,30 @@
-import { useState } from 'react';
-import { Category } from '../../../../../app/types/Category';
-import { useCategories } from '../../../../../app/hooks/useCategories';
+import { useCategories } from '@app/hooks/useCategories';
+import { Category } from '@app/types/Category';
+import { ReactNode, createContext, useState } from 'react';
 
-export function useCategoriesController() {
+interface CategoriesContextProps {
+  categories: Category[];
+  selectedCategory: Category | undefined;
+  isDeleteCategoryModalOpen: boolean;
+  isEditCategoryModalOpen: boolean;
+  isCreateCategoryModalOpen: boolean;
+  handleOpenCreateCategoryModal(): void;
+  handleCloseCreateCategoryModal(): void;
+  handleOpenEditCategoryModal(category: Category): void;
+  handleCloseEditCategoryModal(): void;
+  handleOpenDeleteCategoryModal(category: Category): void;
+  handleCloseDeleteCategoryModal(): void;
+}
+
+export const CategoriesContext = createContext({} as CategoriesContextProps);
+
+export function CategoriesProvider({ children }: { children: ReactNode }) {
   const [selectedCategory, setSelectedCategory] = useState<Category | undefined>();
   const [isDeleteCategoryModalOpen, setIsDeleteCategoryModalOpen] = useState(false);
   const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
   const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
 
-  const { categories, handleDeleteCategory: deleteCategory } = useCategories();
+  const { categories } = useCategories();
 
   function handleOpenCreateCategoryModal() {
     setIsCreateCategoryModalOpen(true);
@@ -24,7 +40,6 @@ export function useCategoriesController() {
   }
 
   function handleCloseEditCategoryModal() {
-    setSelectedCategory(undefined);
     setIsEditCategoryModalOpen(false);
   }
 
@@ -33,15 +48,11 @@ export function useCategoriesController() {
     setIsDeleteCategoryModalOpen(true);
   }
 
-  function handleDeleteCategory(categoryId: string) {
-    deleteCategory(categoryId);
-  }
-
   function handleCloseDeleteCategoryModal() {
     setIsDeleteCategoryModalOpen(false);
   }
 
-  return {
+  return <CategoriesContext.Provider value={{
     categories,
     selectedCategory,
     isDeleteCategoryModalOpen,
@@ -52,7 +63,8 @@ export function useCategoriesController() {
     handleOpenEditCategoryModal,
     handleCloseEditCategoryModal,
     handleOpenDeleteCategoryModal,
-    handleCloseDeleteCategoryModal,
-    handleDeleteCategory
-  };
+    handleCloseDeleteCategoryModal
+  }}>
+    {children}
+  </CategoriesContext.Provider>;
 }
