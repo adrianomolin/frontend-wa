@@ -1,43 +1,24 @@
 import { Actions, Content } from './styles';
 
-import closeIcon from '../../../assets/icons/close-icon.svg';
-import { useProducts } from '../../../../../../../app/hooks/useProducts';
-import { ProductVisualizer } from '../../../../../../components/ProductCard';
-import Button from '../../../../../../components/Button';
+import { ProductVisualizer } from '@components/ProductCard';
+import Button from '@components/Button';
+import { useProductsModalController } from '../useProductsModalController';
+import { Modal } from '@view/components/Modal';
 
 export function DeleteProductModal() {
-  const { handleCloseModal, selectedModalProps } = useModal();
-  const { handleDeleteProduct } = useProducts();
-  const { product } = selectedModalProps;
+  const { handleCloseModal, isDeleteProductModalOpen, handleCloseDeleteProductModal, handleDeleteProduct, selectedProduct } = useProductsModalController();
 
-  if (!product) {
-    return null;
-  }
-
-  function deleteProduct() {
-    handleCloseModal();
-    handleDeleteProduct(product!._id);
-  }
+  if (!selectedProduct) return null;
 
   return (
-    <>
-      <header>
-        <strong>
-        Excluir Produto
-        </strong>
-
-        <button type="button">
-          <img src={closeIcon} alt="Fechar" onClick={handleCloseModal} />
-        </button>
-      </header>
-
+    <Modal isOpen={isDeleteProductModalOpen} onClose={handleCloseDeleteProductModal} title='Deletar Produto'>
       <Content>
 
         <div className="content-items">
             Tem certeza que deseja excluir este produto?
         </div>
         <div>
-          <ProductVisualizer product={product} />
+          <ProductVisualizer product={selectedProduct} />
         </div>
       </Content>
 
@@ -47,17 +28,17 @@ export function DeleteProductModal() {
           className="secondary"
           onClick={handleCloseModal}
         >
-              Manter produto
+          Manter produto
         </button>
 
         <Button
           type="button"
           width='11.6875'
-          onClick={deleteProduct}
+          onClick={() => handleDeleteProduct(selectedProduct._id)}
         >
-              Excluir produto
+          Excluir produto
         </Button>
       </Actions>
-    </>
+    </Modal>
   );
 }

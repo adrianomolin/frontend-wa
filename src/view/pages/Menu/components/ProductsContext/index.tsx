@@ -14,7 +14,6 @@ interface ProductsProvider {
   handleCloseEditProductModal(): void,
   handleOpenDeleteProductModal(product: Product): void,
   handleCloseDeleteProductModal(): void,
-  handleDeleteProduct(productId: string): void
 }
 
 export const ProductsContext = createContext({} as ProductsProvider);
@@ -23,9 +22,9 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
   const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] = useState(false);
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
-  const [isCreateProductModalOpen, setIsCreateProductModalOpen] = useState(true);
+  const [isCreateProductModalOpen, setIsCreateProductModalOpen] = useState(false);
 
-  const { products, handleDeleteProduct: deleteProduct } = useProducts();
+  const { products } = useProducts();
 
   function handleOpenCreateProductModal() {
     setIsCreateProductModalOpen(true);
@@ -41,17 +40,12 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
   }
 
   function handleCloseEditProductModal() {
-    setSelectedProduct(undefined);
     setIsEditProductModalOpen(false);
   }
 
   function handleOpenDeleteProductModal(product: Product) {
     setSelectedProduct(product);
     setIsDeleteProductModalOpen(true);
-  }
-
-  function handleDeleteProduct(productId: string) {
-    deleteProduct(productId);
   }
 
   function handleCloseDeleteProductModal() {
@@ -69,8 +63,7 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
     handleOpenEditProductModal,
     handleCloseEditProductModal,
     handleOpenDeleteProductModal,
-    handleCloseDeleteProductModal,
-    handleDeleteProduct
+    handleCloseDeleteProductModal
   }}>
     {children}
   </ProductsContext.Provider>;
