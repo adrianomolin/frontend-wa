@@ -13,7 +13,7 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, title, children }: ModalProps) {
-  const ModalRef = useRef(null as HTMLElement | null);
+  const modalRef = useRef<HTMLDivElement  | null>(null as HTMLDivElement  | null);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -27,7 +27,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
   }, [isOpen, onClose]);
 
   function handleClickOnOutsideArea(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    if (!ModalRef.current?.querySelector('.modal-body')?.contains(e.target as Node)) {
+    if (!modalRef.current?.querySelector('.modal-body')?.contains(e.target as Node)) {
       onClose();
     }
   }
@@ -40,7 +40,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            ref={ModalRef}
+            ref={modalRef}
             onClick={handleClickOnOutsideArea}
           >
             <ModalBody
