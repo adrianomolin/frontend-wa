@@ -1,8 +1,8 @@
-import { List, ListProps } from '../../../../../../components/List';
+import { List, ListProps } from '@components/List';
 
-import editIcon from '../../../../../../../assets/icons/edit.svg';
-import deleteIcon from '../../../../../../../assets/icons/delete.svg';
-import { useCategoriesController } from '../../useCategoriesController';
+import editIcon from '@assets/icons/edit.svg';
+import deleteIcon from '@assets/icons/delete.svg';
+import { useCategoriesController } from '../../CategoriesContext/useCategoriesController';
 
 export function CategoriesList() {
   const { categories, handleOpenCreateCategoryModal, handleOpenEditCategoryModal, handleOpenDeleteCategoryModal } = useCategoriesController();
