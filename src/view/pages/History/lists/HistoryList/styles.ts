@@ -8,7 +8,7 @@ export const Table = styled.table`
   border-collapse: separate;
   border-radius: 0.5rem;
   border: 0.0625rem solid ${({ theme }) => theme.colors.gray['-400']};
-  overflow: hidden;
+  overflow: auto;
 
   td, th {
     text-align: left;

@@ -1,20 +1,20 @@
-import { formatCurrency } from '../../../../../app/utils/formatCurrency';
+import { formatCurrency } from '@app/utils/formatCurrency';
 
 import { OrderDetails, Actions } from './styles';
-import { formatDate } from '../../../../../app/utils/formatDate';
-import { Modal } from '../../../../components/Modal';
-import { useHistoryModalController } from './useHistoryModalController';
+import { formatDate } from '@app/utils/formatDate';
+import { Modal } from '@components/Modal';
+import { useHistoryModalController } from '../useHistoryModalController';
 
 export function HistoryModal() {
   const {
-    handleDeleteOrder,
     selectedOrder,
-    isOpen,
-    onClose,
+    handleCloseHistoryModal,
+    handleOpenDeleteModal,
+    isHistoryModalOpen,
   } = useHistoryModalController();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={`Mesa ${selectedOrder.table}`}>
+    <Modal isOpen={isHistoryModalOpen} onClose={handleCloseHistoryModal} title={`Mesa ${selectedOrder.table}`}>
       <div className="status-container">
         <small>Data do pedido</small>
         <div>
@@ -57,9 +57,9 @@ export function HistoryModal() {
         <button
           type="button"
           className="secondary"
-          onClick={() => handleDeleteOrder(selectedOrder._id)}
+          onClick={() => handleOpenDeleteModal(selectedOrder)}
         >
-              Excluir registro
+          Excluir registro
         </button>
       </Actions>
     </Modal>
