@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from 'react';
-import { Product } from '../../../../../app/types/Product';
-import { useProducts } from '../../../../../app/hooks/useProducts';
+import { Product } from '@app/types/Product';
+import { useProducts } from '@app/hooks/useProducts';
 
 interface ProductsProvider {
   products: Product[],
