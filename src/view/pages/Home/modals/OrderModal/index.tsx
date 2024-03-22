@@ -4,23 +4,34 @@ import { formatCurrency } from '../../../../../app/utils/formatCurrency';
 import { useOrderModalController } from './useOrderModalController';
 
 export function OrderModal() {
-  const { selectedOrder, handleCancelOrder, changeOrderStatus, isOpen, onClose } = useOrderModalController();
+  const { selectedOrder, handleCancelOrder, changeOrderStatus, isOrderModalOpen, handleCloseOrderModal } = useOrderModalController();
+
+  const statuses = {
+    WAITING: {
+      icon: '🕒',
+      label: 'Fila de espera'
+    },
+    IN_PRODUCTION: {
+      icon: '👨‍🍳',
+      label: 'Em preparação'
+    },
+    DONE: {
+      icon: '✅',
+      label: 'Pronto!'
+    }
+  };
 
   return (
-    <Modal title={`Mesa ${selectedOrder.table}`} isOpen={isOpen} onClose={onClose}>
+    <Modal title={`Mesa ${selectedOrder.table}`} isOpen={isOrderModalOpen} onClose={handleCloseOrderModal}>
       <div className="status-container">
         <small>Status do Pedido</small>
         <div>
           <span>
-            { selectedOrder.status == 'WAITING' && '🕒'}
-            { selectedOrder.status == 'IN_PRODUCTION' && '👨‍🍳'}
-            { selectedOrder.status == 'DONE' && '✅'}
+            { selectedOrder.status && statuses[selectedOrder.status].icon }
           </span>
 
           <strong>
-            { selectedOrder.status == 'WAITING' && 'Fila de espera'}
-            { selectedOrder.status == 'IN_PRODUCTION' && 'Em preparação'}
-            { selectedOrder.status == 'DONE' && 'Pronto!'}
+            { selectedOrder.status && statuses[selectedOrder.status].label }
           </strong>
         </div>
       </div>
@@ -40,9 +51,7 @@ export function OrderModal() {
               <span className="quantity">{quantity}x</span>
               <div className="product-details">
                 <strong>{product.name}</strong>
-                <span>{
-                  formatCurrency(product.price)
-                }</span>
+                <span>{formatCurrency(product.price)}</span>
               </div>
             </div>
           ))}

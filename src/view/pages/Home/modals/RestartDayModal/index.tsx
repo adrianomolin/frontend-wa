@@ -21,10 +21,10 @@ export function RestartDayModal() {
     <Modal title={<ModalTitle />} isOpen={isOpen} onClose={onClose}>
       <Content>
         <div className="content-items">
-              Ao reiniciar o dia, todos os pedidos serão arquivados no status atual.
+          Ao reiniciar o dia, todos os pedidos serão arquivados no status atual.
         </div>
         <div>
-            Deseja reiniciar o dia?
+          Deseja reiniciar o dia?
         </div>
       </Content>
 
@@ -34,7 +34,7 @@ export function RestartDayModal() {
           className="secondary"
           onClick={onClose}
         >
-              Não, continuar pedidos
+          Não, continuar pedidos
         </button>
 
         <Button
@@ -42,7 +42,7 @@ export function RestartDayModal() {
           width='12.1875'
           onClick={handleResetDayOrders}
         >
-              Sim, reiniciar o dia
+          Sim, reiniciar o dia
         </Button>
       </Actions>
     </Modal>
