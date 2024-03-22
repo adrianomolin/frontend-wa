@@ -1,8 +1,12 @@
-import { useContext } from 'react';
-import { OrdersContext } from '../context/OrdersContext';
+import { useQuery } from '@tanstack/react-query';
+import { ordersService } from '@app/services/ordersService';
 
 export function useOrders() {
-  const context = useContext(OrdersContext);
+  const { data, isFetching } = useQuery({
+    queryKey: ['orders'],
+    queryFn: ordersService.getAll,
+    staleTime: 1000
+  });
 
-  return context;
+  return { orders: data ?? [], isFetching };
 }

@@ -1,8 +1,12 @@
-import { useContext } from 'react';
-import { CategoriesContext } from '../context/CategoriesContext';
+import { useQuery } from '@tanstack/react-query';
+import { categoriesService } from '@app/services/categoriesService';
 
 export function useCategories() {
-  const context = useContext(CategoriesContext);
+  const { data, isFetching } = useQuery({
+    queryKey: ['categories'],
+    queryFn: categoriesService.getAll,
+    staleTime: Infinity
+  });
 
-  return context;
+  return { categories: data ?? [], isFetching };
 }

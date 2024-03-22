@@ -1,8 +1,12 @@
-import { useContext } from 'react';
-import { ProductsContext } from '../context/ProductsContext';
+import { useQuery } from '@tanstack/react-query';
+import { productsService } from '@app/services/productsService';
 
 export function useProducts() {
-  const context = useContext(ProductsContext);
+  const { data, isFetching } = useQuery({
+    queryKey: ['products'],
+    queryFn: productsService.getAll,
+    staleTime: Infinity
+  });
 
-  return context;
+  return { products: data ?? [], isFetching };
 }

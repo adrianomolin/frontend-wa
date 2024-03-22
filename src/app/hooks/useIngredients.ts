@@ -1,8 +1,12 @@
-import { useContext } from 'react';
-import { IngredientsContext } from '../context/IngredientsContext';
+import { useQuery } from '@tanstack/react-query';
+import { ingredientsService } from '@app/services/ingredientsService';
 
 export function useIngredients() {
-  const context = useContext(IngredientsContext);
+  const { data, isFetching } = useQuery({
+    queryKey: ['ingredients'],
+    queryFn: ingredientsService.getAll,
+    staleTime: Infinity
+  });
 
-  return context;
+  return { ingredients: data ?? [], isFetching };
 }

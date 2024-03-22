@@ -1,8 +1,12 @@
-import { useContext } from 'react';
-import { UsersContext } from '../context/UsersContext';
+import { useQuery } from '@tanstack/react-query';
+import { usersService } from '@app/services/usersService';
 
 export function useUsers() {
-  const context = useContext(UsersContext);
+  const { data, isFetching } = useQuery({
+    queryKey: ['users'],
+    queryFn: usersService.getAll,
+    staleTime: Infinity
+  });
 
-  return context;
+  return { users: data ?? [], isFetching };
 }
