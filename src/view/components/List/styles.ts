@@ -1,12 +1,12 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
+export const TableBody = styled.div`
+  height: 100%;
+  overflow: auto;
 `;
 
 export const Container = styled.div`
-  animation: ${fadeIn} .4s forwards;
+  height: 85%;
 `;
 
 export const HeaderButton = styled.button`
@@ -18,16 +18,30 @@ export const HeaderButton = styled.button`
   font-weight: 600;
 `;
 
+export const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Table = styled.table`
-  flex: 1;
   width: 100%;
   font-size: 0.875rem;
   border-spacing: 0;
   border-collapse: separate;
   border-radius: 0.5rem;
   border: 0.0625rem solid ${({ theme }) => theme.colors.gray['-400']};
-  overflow: hidden;
-  table-layout: auto;
+  overflow: auto;
+
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  tbody {
+    border-collapse: collapse;
+  }
 
   td, th {
     text-align: left;

@@ -1,8 +1,11 @@
-import { Container, HeaderButton, Table } from './styles';
+import { ReactNode } from 'react';
+
+import filter from '@assets/icons/filter.svg';
 
 import { ContentHeader } from '../ContentHeader';
-import { ReactNode } from 'react';
-import filter from '../../../assets/icons/filter.svg';
+import Spinner from '../Spinner';
+
+import { HeaderButton, LoaderContainer, Table, TableBody } from './styles';
 
 export interface ListProps {
   header: {
@@ -17,9 +20,10 @@ export interface ListProps {
   }
   data: object[],
   tableBody: ReactNode,
+  isLoading?: boolean,
 }
 
-export function List({ header, data, tableBody }: ListProps) {
+export function List({ header, data, tableBody, isLoading }: ListProps) {
   const { title, action, fields } = header;
 
   if (!header || !data) {
@@ -27,7 +31,7 @@ export function List({ header, data, tableBody }: ListProps) {
   }
 
   return (
-    <Container>
+    <>
       <ContentHeader title={title} length={data.length}>
         {
           action && (
@@ -37,31 +41,40 @@ export function List({ header, data, tableBody }: ListProps) {
           )
         }
       </ContentHeader>
-      <Table>
-        <thead>
-          <tr>
-            {
-              fields.map((field, index) => (
-                typeof field === 'object' ? (
-                  <th key={`th-${index}`} className='filter'>
-                    <button>
-                      {field.filter}
-                      <img src={filter} alt='filter' />
-                    </button>
-                  </th>
-                ) : (
-                  <th key={`th-${index}`}>
-                    {field}
-                  </th>
-                )
-              ))
-            }
-          </tr>
-        </thead>
-        <tbody>
-          {tableBody}
-        </tbody>
-      </Table>
-    </Container>
+
+      {isLoading && (
+        <LoaderContainer>
+          <Spinner />
+        </LoaderContainer>
+      )}
+
+      {!isLoading && (
+        <TableBody>
+          <Table>
+            <thead>
+              <tr>
+                {fields.map((field, index) => (
+                  typeof field === 'object' ? (
+                    <th key={`th-${index}`} className='filter'>
+                      <button>
+                        {field.filter}
+                        <img src={filter} alt='filter' />
+                      </button>
+                    </th>
+                  ) : (
+                    <th key={`th-${index}`}>
+                      {field}
+                    </th>
+                  )
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {tableBody}
+            </tbody>
+          </Table>
+        </TableBody>
+      )}
+    </>
   );
 }

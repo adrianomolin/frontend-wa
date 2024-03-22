@@ -74,6 +74,7 @@ export const GlobalStyles = createGlobalStyle<{theme: DefaultTheme}>`
   .container {
     display: flex;
     flex-direction: row;
+    height: 100%;
   }
 
   @media only screen and (max-height: 900px) {
