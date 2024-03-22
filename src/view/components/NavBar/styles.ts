@@ -90,7 +90,7 @@ export const NavItem = styled.div`
       height: 1.5px;
       margin-top: 0.5rem;
       background: ${({ theme }) => theme.colors.primary.main};
-      border-radius: 100%;
+      border-radius: 100px;
     }
 
     &.active{

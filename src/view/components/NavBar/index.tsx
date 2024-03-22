@@ -14,8 +14,8 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 export function NavBar() {
-  const { handleLogout } = useAuth();
-  const [activeBar, setActiveBar] = useState<'home' | 'history' | 'menu' | 'users' | 'profile'>('home');
+  const { signout } = useAuth();
+  const [activeBar, setActiveBar] = useState<'home' | 'history' | 'menu' | 'users' | 'profile'>();
 
   return(
     <Container>
@@ -87,7 +87,7 @@ export function NavBar() {
 
           <NavItem>
             <NavLink to='/auth/login'>
-              <button onClick={handleLogout}>
+              <button onClick={signout}>
                 <Logout />
                 <Title>Sair</Title>
                 <span />
