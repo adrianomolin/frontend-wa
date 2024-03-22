@@ -1,23 +1,16 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useCallback, useEffect, useState } from 'react';
 import { User } from '../types/User';
-
-import { useNavigate } from 'react-router-dom';
-import { api } from '../utils/api';
-import Loader from '../../view/components/Loader';
+import { localStorageKeys } from '@app/config/localStorageKeys';
+import { useQuery } from '@tanstack/react-query';
+import { authService } from '@app/services/authService';
+import Loader from '@view/components/Loader';
 import { toast } from 'react-toastify';
-
-interface NewUserProps {
-  name: string,
-  email: string,
-  password: string,
-  role: string,
-}
 
 interface AuthContextProps {
   user: User | null,
-  handleLogin: (email: string, password: string) => Promise<void>,
-  handleLogout: () => void;
-  handleCreateNewUser: (newUser: NewUserProps) => Promise<void>;
+  signin: (accessToken: string) => void,
+  signout: () => void;
+  signedIn: boolean;
 }
 
 interface AuthProviderProps {
@@ -27,78 +20,48 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [, setAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<null | User>(null);
+  const [signedIn, setSignedIn] = useState<boolean>(() => {
+    const storedAccessToken = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
 
-  const navigate = useNavigate();
+    return !!storedAccessToken;
+  });
 
+  const { isError, isFetching, isSuccess, data } = useQuery({
+    queryKey: ['users', 'me'],
+    queryFn: () => authService.me(),
+    enabled: signedIn,
+    staleTime: Infinity
+  });
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userStorage = localStorage.getItem('user');
+  const signin =  useCallback((accessToken: string) => {
+    localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
 
-    if (!user && userStorage) {
-      setUser(JSON.parse(userStorage));
-    }
-
-    if (token) {
-      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-      setAuthenticated(true);
-    }
-
-    setLoading(false);
+    setSignedIn(true);
   }, []);
 
-  async function handleLogin(email: string, password: string) {
-    const { data } = await api.post('auth', { email, password });
+  const signout =  useCallback(() => {
+    localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
 
-    if (!data || !data.user) {
-      toast.error('Ocorreu um erro ao fazer login');
-      return;
+    setSignedIn(false);
+  }, []);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('Sessão expirada. Faça login novamente.');
+      signout();
     }
-
-    setUser(data.user);
-    localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('token', JSON.stringify(data.token));
-    api.defaults.headers.Authorization = `Bearer ${data.token}`;
-    navigate('/');
-    setAuthenticated(true);
-  }
-
-  async function handleLogout() {
-    setUser(null);
-
-    window.location.reload();
-
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    api.defaults.headers.Authorization = '';
-    setAuthenticated(false);
-  }
-
-  async function handleCreateNewUser(newUser: NewUserProps) {
-    if (user?.role === 'ADMIN') {
-      setLoading(true);
-      await api.post('/users', newUser);
-      setLoading(false);
-    } else {
-      toast.warning('Você não possui autorização');
-    }
-  }
-
-  if (loading) {
-    return <Loader />;
-  }
+  }, []);
 
   return (
     <AuthContext.Provider value={{
-      user,
-      handleLogin,
-      handleLogout,
-      handleCreateNewUser
+      signedIn: isSuccess && signedIn,
+      user: data,
+      signin,
+      signout,
     }}>
-      {children}
+      <Loader isLoading={isFetching}/>
+
+      {!isFetching && children}
     </AuthContext.Provider>
   );
 }
