@@ -1,65 +1,19 @@
-import { FormEvent, useState } from 'react';
-
 import { Container, Form, Welcome } from './styles';
 
-import { FormGroup } from '../../components/FormGroup';
-import { Logo } from '../../components/Logo';
-import Loader from '../../components/Loader';
-import Button from '../../components/Button';
-import Input from '../../components/Input';
-import { useErrors } from '../../../app/hooks/useErrors';
-import isEmailValid from '../../../app/utils/isEmailValid';
-import { useAuth } from '../../../app/hooks/useAuth';
+import { FormGroup } from '@components/FormGroup';
+import { Logo } from '@components/Logo';
+import Button from '@components/Button';
+import Input from '@components/Input';
+import { useAuthController } from './useAuthController';
 
 export function Authentication() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const { errors, setError, removeError, getErrorMessageByFieldName } = useErrors();
-
-  const isFormValid = (email && password && errors.length === 0);
-
-  const { handleLogin } = useAuth();
-
-  function handleEmailInput(event: FormEvent<HTMLInputElement>) {
-    setEmail(event.currentTarget.value);
-
-    if (!event.currentTarget.value) {
-      setError({ fieldName: 'email', message: 'Insira um e-mail válido.' });
-    } else {
-      removeError('email');
-    }
-  }
-
-  function handlePasswordInput(event: FormEvent<HTMLInputElement>) {
-    setPassword(event.currentTarget.value);
-
-    if (!event.currentTarget.value) {
-      setError({ fieldName: 'password', message: 'Insira uma senha.' });
-    } else {
-      removeError('password');
-    }
-  }
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-
-    if (!isEmailValid(email)) {
-      setError({ fieldName: 'email', message: 'Insira um e-mail válido.' });
-    } else {
-      removeError('email');
-    }
-
-    if (isFormValid) {
-      setLoading(true);
-      handleLogin(email, password);
-    }
-  }
-
-  if (loading) {
-    return <Loader />;
-  }
+  const {
+    handleSubmit,
+    handleInputChange,
+    getErrorMessageByFieldName,
+    user,
+    isLoading
+  } = useAuthController();
 
   return (
     <Container>
@@ -73,9 +27,9 @@ export function Authentication() {
         <FormGroup error={getErrorMessageByFieldName('email')} title="E-mail">
           <Input
             type='email'
-            value={email}
+            value={user.email}
             placeholder='Seu e-mail de acesso'
-            onChange={handleEmailInput}
+            onChange={(e) => handleInputChange('email', e.target.value)}
             error={getErrorMessageByFieldName('email')}
           />
         </FormGroup>
@@ -83,16 +37,16 @@ export function Authentication() {
         <FormGroup error={getErrorMessageByFieldName('password')} title="Senha">
           <Input
             type='password'
-            value={password}
+            value={user.password}
             placeholder='Informe sua senha'
-            onChange={handlePasswordInput}
+            onChange={(e) => handleInputChange('password', e.target.value)}
             error={getErrorMessageByFieldName('password')}
           />
         </FormGroup>
 
         <Button
           type='submit'
-          disabled={!isFormValid}
+          disabled={isLoading}
         >
           Fazer login
         </Button>
