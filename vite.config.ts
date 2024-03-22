@@ -6,7 +6,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [
     react({
-      include: '**/*.tsx',
+      include: /\.(mdx|js|jsx|ts|tsx)$/,
     }),
     tsconfigPaths()
   ],
