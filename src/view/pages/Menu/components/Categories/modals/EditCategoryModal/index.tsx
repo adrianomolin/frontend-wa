@@ -1,73 +1,26 @@
-import { FormEvent, useState } from 'react';
-
-import Button from '../../../../../../components/Button';
-import Input from '../../../../../../components/Input';
-import { FormGroup } from '../../../../../../components/FormGroup';
-import { useModal } from '../../../../../../app/context/ModalContext';
+import Button from '@components/Button';
+import Input from '@components/Input';
+import { FormGroup } from '@components/FormGroup';
 
 import { Actions, Content, Form } from './styles';
-import closeIcon from '../../../assets/icons/close-icon.svg';
-import { useCategories } from '../../../../../../../app/context/CategoriesContext';
+import { useCategoriesModalController } from '../useCategoriesModaController';
+import { Modal } from '@view/components/Modal';
 
 export function EditCategoryModal() {
-  const { handleCloseModal, selectedModalProps, handleUseModal} = useModal();
-  const { handleEditCategory } = useCategories();
-  const { category } = selectedModalProps;
+  const { category, selectedCategory, handleInputChange, isEditCategoryModalOpen, handleCloseEditModal, handleOpenDeleteCategoryModal, handleSubmitEditCategory } = useCategoriesModalController();
 
-  if (!category) {
-    return null;
-  }
-
-  const [icon, setIcon] = useState(category.icon);
-  const [name, setName] = useState(category.name);
-  const [, setActive] = useState(false);
-
-
-  function handleIconInput(e: FormEvent<HTMLInputElement>) {
-    setIcon(e.currentTarget.value);
-    !e.currentTarget.value || !name ? setActive(false) : setActive(true);
-  }
-
-  function handleNameInput(e: FormEvent<HTMLInputElement>) {
-    setName(e.currentTarget.value);
-    !e.currentTarget.value || !icon ? setActive(false) : setActive(true);
-  }
-
-  function handleDelete() {
-    handleUseModal('DeleteCategory', { category: selectedModalProps });
-  }
-
-  function handleEdit(event: FormEvent) {
-    event.preventDefault();
-
-    handleEditCategory({
-      _id: category!._id,
-      icon,
-      name
-    });
-    handleCloseModal();
-  }
+  if (!selectedCategory) return null;
 
   return (
-    <>
-      <header>
-        <strong>
-          Editar Categoria
-        </strong>
-
-        <button type="button">
-          <img src={closeIcon} alt="Fechar" onClick={handleCloseModal} />
-        </button>
-      </header>
-
+    <Modal isOpen={isEditCategoryModalOpen} onClose={handleCloseEditModal} title='Editar Categoria'>
       <Content>
 
-        <Form onSubmit={handleEdit}>
+        <Form onSubmit={handleSubmitEditCategory}>
           <FormGroup title='Emoji'>
             <Input
-              value={icon}
+              value={category.icon}
               type=''
-              onChange={(e) => handleIconInput(e)}
+              onChange={(e) => handleInputChange('icon', e.currentTarget.value)}
               width='25.5'
               placeholder='Ex: 🧀'
             />
@@ -75,8 +28,8 @@ export function EditCategoryModal() {
 
           <FormGroup title='Nome da Categoria'>
             <Input
-              value={name}
-              onChange={(e) => handleNameInput(e)}
+              value={category.name}
+              onChange={(e) => handleInputChange('name', e.currentTarget.value)}
               width='25.5'
               placeholder='Ex: Lanches'
             />
@@ -86,7 +39,7 @@ export function EditCategoryModal() {
             <button
               type="button"
               className="secondary"
-              onClick={handleDelete}
+              onClick={() => handleOpenDeleteCategoryModal(selectedCategory)}
             >
               Excluir categoria
             </button>
@@ -100,6 +53,6 @@ export function EditCategoryModal() {
           </Actions>
         </Form>
       </Content>
-    </>
+    </Modal>
   );
 }

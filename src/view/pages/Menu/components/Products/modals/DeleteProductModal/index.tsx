@@ -6,7 +6,7 @@ import { useProductsModalController } from '../useProductsModalController';
 import { Modal } from '@view/components/Modal';
 
 export function DeleteProductModal() {
-  const { handleCloseModal, isDeleteProductModalOpen, handleCloseDeleteProductModal, handleDeleteProduct, selectedProduct } = useProductsModalController();
+  const { isDeleteProductModalOpen, handleCloseDeleteProductModal, handleDeleteProduct, selectedProduct } = useProductsModalController();
 
   if (!selectedProduct) return null;
 
@@ -26,7 +26,7 @@ export function DeleteProductModal() {
         <button
           type="button"
           className="secondary"
-          onClick={handleCloseModal}
+          onClick={handleCloseDeleteProductModal}
         >
           Manter produto
         </button>
@@ -34,7 +34,7 @@ export function DeleteProductModal() {
         <Button
           type="button"
           width='11.6875'
-          onClick={() => handleDeleteProduct(selectedProduct._id)}
+          onClick={() => handleDeleteProduct(selectedProduct)}
         >
           Excluir produto
         </Button>

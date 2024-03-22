@@ -1,7 +1,7 @@
-import editIcon from '../../../../../../../assets/icons/edit.svg';
-import deleteIcon from '../../../../../../../assets/icons/delete.svg';
-import { List, ListProps } from '../../../../../../components/List';
-import { formatCurrency } from '../../../../../../../app/utils/formatCurrency';
+import editIcon from '@assets/icons/edit.svg';
+import deleteIcon from '@assets/icons/delete.svg';
+import { List, ListProps } from '@components/List';
+import { formatCurrency } from '@app/utils/formatCurrency';
 import { useProductsController } from '../../../ProductsContext/useProductsController';
 
 export function ProductsList() {
@@ -16,7 +16,7 @@ export function ProductsList() {
     }
   };
 
-  const body = products.map(product => (
+  const body = products?.map(product => (
     <tr key={product._id}>
       <td><img className='image' src={product.imagePath} alt={product.name} /></td>
       <td>{product.name}</td>

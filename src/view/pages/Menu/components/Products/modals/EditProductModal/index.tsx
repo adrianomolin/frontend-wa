@@ -20,6 +20,7 @@ export function EditProductModal() {
     categories,
     isEditProductModalOpen,
     searchInput,
+    handleEditProduct,
     handleSearchInput,
     handleCheckboxChange,
     handleCloseEditProductModal,
@@ -32,28 +33,28 @@ export function EditProductModal() {
   useEffect(() => {
     const image = product.image;
 
-    if (preview !== selectedProduct?.imagePath) {
-      if (!image) {
-        setPreview('');
-        return;
-      }
+    console.log(product.image, selectedProduct?.imagePath, preview);
 
-      const objectUrl = URL.createObjectURL(image);
-      setPreview(objectUrl);
-
-      return () => URL.revokeObjectURL(objectUrl);
+    if (!image || !image.size) {
+      setPreview('');
+      return;
     }
+
+    const objectUrl = URL.createObjectURL(image);
+    setPreview(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
   }, [product.image]);
 
   return (
     <Modal isOpen={isEditProductModalOpen} onClose={handleCloseEditProductModal} title='Editar Produto'>
       <Content>
-        <Form>
+        <Form onSubmit={handleEditProduct}>
           <Body>
             <FormContent>
               <h2>Imagem</h2>
               <ImageContainer>
-                <Image src={product.image ? preview : emptyIMG} />
+                <Image src={preview ? preview : emptyIMG} />
 
                 <label htmlFor="file-upload" className="custom-file-upload">
                   <img src={imageIcon} />
@@ -101,21 +102,19 @@ export function EditProductModal() {
 
               <div className='category'>Categoria</div>
               <Categories>
-                {
-                  categories.map(category => (
-                    <button
-                      type='button'
-                      onClick={() => handleInputChange('category', category._id)}
-                      key={category._id}
-                    >
-                      <Category
-                        active={category._id === product.category}
-                        icon={category.icon}
-                        name={category.name}
-                      />
-                    </button>
-                  ))
-                }
+                {categories.map(category => (
+                  <button
+                    type='button'
+                    onClick={() => handleInputChange('category', category._id)}
+                    key={category._id}
+                  >
+                    <Category
+                      active={category._id === product.category}
+                      icon={category.icon}
+                      name={category.name}
+                    />
+                  </button>
+                ))}
               </Categories>
             </FormContent>
 
@@ -138,25 +137,23 @@ export function EditProductModal() {
                 />
               </FormGroup>
               <IngredientsList>
-                {
-                  ingredients.map(ingredient => (
-                    <Ingredient
-                      key={ingredient._id}
-                      onClick={() => handleCheckboxChange(ingredient)}
-                    >
-                      <Name>
-                        {ingredient.icon} {ingredient.name}
-                      </Name>
-                      <Checkbox
-                        isChecked={product.ingredients.includes(ingredient._id)}
-                        value='none'
-                        size="large"
-                        className='checkbox'
-                      />
+                {ingredients.map(ingredient => (
+                  <Ingredient
+                    key={ingredient._id}
+                    onClick={() => handleCheckboxChange(ingredient)}
+                  >
+                    <Name>
+                      {ingredient.icon} {ingredient.name}
+                    </Name>
+                    <Checkbox
+                      isChecked={product.ingredients.includes(ingredient._id)}
+                      value='none'
+                      size="large"
+                      className='checkbox'
+                    />
 
-                    </Ingredient>
-                  ))
-                }
+                  </Ingredient>
+                ))}
               </IngredientsList>
             </FormContent>
           </Body>

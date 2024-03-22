@@ -1,10 +1,14 @@
 import { FormEvent, useState } from 'react';
 import { useIngredients } from '@app/hooks/useIngredients';
 import { useCategories } from '@app/hooks/useCategories';
-import { useProducts } from '@app/hooks/useProducts';
 import { Ingredient } from '@app/types/Ingredient';
 
 import { useProductsController } from '../../ProductsContext/useProductsController';
+import { useMutation } from '@tanstack/react-query';
+import { productsService } from '@app/services/productsService';
+import { toast } from 'react-toastify';
+import { useInvalidate } from '@app/hooks/useInvalidate';
+import { Product } from '@app/types/Product';
 
 type ProductProps = {
   name: string;
@@ -12,7 +16,7 @@ type ProductProps = {
   price: number;
   category: string;
   ingredients: string[];
-  image: Blob | null;
+  image: Blob;
 }
 
 export function useProductsModalController() {
@@ -27,8 +31,8 @@ export function useProductsModalController() {
   } = useProductsController();
 
   const { categories } = useCategories();
-  const { handleCreateNewProduct: createNewProduct, handleDeleteProduct: deleteProduct } = useProducts();
   const { ingredients: IngredientsInitial } = useIngredients();
+  const { invalidate } = useInvalidate();
 
   const [searchInput, setSearchInput] = useState('');
   const [isNewProductValid, setIsNewProductValid] = useState(true);
@@ -41,7 +45,7 @@ export function useProductsModalController() {
     price: selectedProduct?.price ?? 0,
     category: selectedProduct?.category._id ?? '',
     ingredients: selectedProduct?.ingredients.map((value) => value.ingredient._id) ?? [],
-    image: selectedProduct?.imagePath ? new Blob() : null,
+    image: selectedProduct?.imagePath ? new Blob() : {} as Blob,
   });
 
   function handleInputChange(input: keyof ProductProps, value: typeof product[keyof ProductProps]) {
@@ -58,34 +62,88 @@ export function useProductsModalController() {
     }));
   }
 
-  function handleCloseModal() {
+  const { mutateAsync: createMutateAsync } = useMutation({
+    mutationFn: productsService.create
+  });
+
+  const { mutateAsync: deleteMutateAsync } = useMutation({
+    mutationFn: productsService.delete
+  });
+
+  const { mutateAsync: updateMutateAsync } = useMutation({
+    mutationFn: productsService.update
+  });
+
+  function clearProductFields() {
     setProduct({
       name: '',
       description: '',
       price: 0,
       category: '',
       ingredients: [],
-      image: null,
+      image: {} as Blob,
     });
-
-    handleCloseCreateProductModal();
   }
 
-  function handleCreateNewProduct(event: FormEvent) {
+  function createFormDataFromProduct(product: ProductProps) {
+    const formData = new FormData();
+
+    Object.entries(product).forEach(([key, value]) => {
+      if (key === 'image' && value instanceof Blob) return formData.append(key, value);
+      if (key === 'ingredients') return formData.append(key, JSON.stringify(value));
+
+      formData.set(key, value!.toString());
+    });
+
+    return formData;
+  }
+
+  async function handleCreateNewProduct(event: FormEvent) {
     event.preventDefault();
 
-    const formData = new FormData();
-    Object.entries(product).forEach(([key, value]) => {
-      console.log(key, value);
-      formData.set(key, typeof value === 'object' ? JSON.stringify(value) : value.toString());
-    });
+    try {
+      const formData = createFormDataFromProduct(product);
 
-    createNewProduct(formData);
-    handleCloseModal();
+      await createMutateAsync(formData);
+
+      invalidate(['products']);
+      toast.success('Produto criado com sucesso!');
+    } catch (err) {
+      toast.error('Ocorreu um erro ao tentar criar um novo produto.');
+    }
+
+    handleCloseCreateProductModal();
+    clearProductFields();
   }
 
-  function handleDeleteProduct(productId: string) {
-    deleteProduct(productId);
+  async function handleEditProduct(event: FormEvent) {
+    event.preventDefault();
+
+    try {
+      const formData = createFormDataFromProduct(product);
+
+      await updateMutateAsync({ id: selectedProduct!._id, product: formData });
+
+      clearProductFields();
+
+      invalidate(['products']);
+      toast.success('Produto editado com sucesso!');
+    } catch (err) {
+      toast.error('Ocorreu um erro ao tentar editar o produto.');
+    }
+
+    handleCloseEditProductModal();
+  }
+
+  async function handleDeleteProduct(product: Product) {
+    try {
+      await deleteMutateAsync(product);
+
+      invalidate(['products']);
+      toast.success('Produto deletado com sucesso!');
+    } catch (err) {
+      toast.error('Ocorreu um erro ao tentar deletar o produto.');
+    }
     handleCloseDeleteProductModal();
   }
 
@@ -97,7 +155,7 @@ export function useProductsModalController() {
   function validateNewProduct() {
     const { name, description, price, category, ingredients, image } = product;
 
-    if (name && description && price && category && ingredients.length > 0 && image) {
+    if (name && description && price && category && ingredients.length > 0 && image.size) {
       setIsNewProductValid(true);
     } else {
       setIsNewProductValid(false);
@@ -105,23 +163,24 @@ export function useProductsModalController() {
   }
 
   return {
-    isCreateProductModalOpen,
-    isEditProductModalOpen,
-    handleCloseEditProductModal,
-    handleCloseModal,
-    isDeleteProductModalOpen,
-    handleCloseDeleteProductModal,
-    handleDeleteProduct,
-    handleInputChange,
-    handleCheckboxChange,
-    handleCreateNewProduct,
-    handleSearchInput,
     ingredients,
     categories,
     product,
     searchInput,
+    selectedProduct,
     isNewProductValid,
+    isCreateProductModalOpen,
+    isEditProductModalOpen,
+    isDeleteProductModalOpen,
+    handleCloseCreateProductModal,
+    handleCloseEditProductModal,
+    handleCloseDeleteProductModal,
+    handleCreateNewProduct,
+    handleEditProduct,
+    handleDeleteProduct,
+    handleInputChange,
+    handleCheckboxChange,
+    handleSearchInput,
     validateNewProduct,
-    selectedProduct
   };
 }

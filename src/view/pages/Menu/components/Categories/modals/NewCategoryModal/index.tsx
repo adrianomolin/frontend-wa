@@ -1,5 +1,3 @@
-import { FormEvent } from 'react';
-
 import Button from '@components/Button';
 import Input from '@components/Input';
 import { FormGroup } from '@components/FormGroup';
@@ -12,20 +10,15 @@ export function NewCategoryModal() {
   const {
     category,
     handleInputChange,
-    handleCloseCreateCategoryModal,
-    isCreateCategoryModalOpen
+    handleCloseCreateModal,
+    isCreateCategoryModalOpen,
+    handleSubmitCreateCategory
   } = useCategoriesModalController();
 
-  function handleCreate(event: FormEvent) {
-    event.preventDefault();
-
-    handleCloseCreateCategoryModal();
-  }
-
   return (
-    <Modal isOpen={isCreateCategoryModalOpen} onClose={handleCloseCreateCategoryModal} title='Nova categoria'>
+    <Modal isOpen={isCreateCategoryModalOpen} onClose={handleCloseCreateModal} title='Nova categoria'>
       <Content>
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleSubmitCreateCategory}>
           <FormGroup title='Emoji'>
             <Input
               value={category.icon}

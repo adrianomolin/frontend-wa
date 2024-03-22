@@ -4,6 +4,11 @@ interface HeaderProps {
   active?: boolean;
 }
 
+export const Content = styled.div`
+  margin-top: 3rem;
+  height: 65%;
+`;
+
 export const HeaderContainer = styled.div`
   margin: 72px 0 2rem 0;
 

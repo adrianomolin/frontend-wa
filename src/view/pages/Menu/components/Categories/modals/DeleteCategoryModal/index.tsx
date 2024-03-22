@@ -1,44 +1,29 @@
 import { Actions, Content } from './styles';
 
-import closeIcon from '../../../assets/icons/close-icon.svg';
-import Button from '../../../../../../components/Button';
-import { useModal } from '../../../../../../app/context/ModalContext';
-import { Category } from '../../../../../../components/Category';
-import { useCategories } from '../../../../../../../app/context/CategoriesContext';
+import Button from '@components/Button';
+import { Category } from '@components/Category';
+import { useCategoriesModalController } from '../useCategoriesModaController';
+import { Modal } from '@view/components/Modal';
 
 export function DeleteCategoryModal() {
-  const { handleCloseModal, selectedModalProps } = useModal();
-  const { handleDeleteCategory } = useCategories();
-  const { category } = selectedModalProps;
+  const {
+    selectedCategory,
+    isDeleteCategoryModalOpen,
+    handleCloseDeleteCategoryModal,
+    handleDeleteCategory,
+  } = useCategoriesModalController();
 
-  if (!category) {
-    return null;
-  }
-
-  function deleteCategory() {
-    handleCloseModal();
-    handleDeleteCategory(category!._id);
-  }
+  if (!selectedCategory) return null;
 
   return (
-    <>
-      <header>
-        <strong>
-          Excluir Categoria
-        </strong>
-
-        <button type="button">
-          <img src={closeIcon} alt="Fechar" onClick={handleCloseModal} />
-        </button>
-      </header>
-
+    <Modal isOpen={isDeleteCategoryModalOpen} onClose={handleCloseDeleteCategoryModal} title='Deletar Categoria'>
       <Content>
 
         <div className="content-items">
             Tem certeza que deseja excluir a categoria?
         </div>
         <div>
-          <Category icon={category.icon} name={category.name}/>
+          <Category icon={selectedCategory.icon} name={selectedCategory.name}/>
         </div>
       </Content>
 
@@ -46,19 +31,19 @@ export function DeleteCategoryModal() {
         <button
           type="button"
           className="secondary"
-          onClick={handleCloseModal}
+          onClick={handleCloseDeleteCategoryModal}
         >
-              Manter categoria
+          Manter categoria
         </button>
 
         <Button
           type="button"
           width='11.6875'
-          onClick={deleteCategory}
+          onClick={handleDeleteCategory}
         >
               Excluir categoria
         </Button>
       </Actions>
-    </>
+    </Modal>
   );
 }

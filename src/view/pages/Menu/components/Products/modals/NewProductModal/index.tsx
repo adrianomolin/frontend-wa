@@ -19,7 +19,7 @@ export function NewProductModal() {
     handleSearchInput,
     handleInputChange,
     handleCheckboxChange,
-    handleCloseModal,
+    handleCloseCreateProductModal,
     isCreateProductModalOpen,
     ingredients,
     categories,
@@ -36,7 +36,7 @@ export function NewProductModal() {
   useEffect(() => {
     const image = product.image;
 
-    if (!image) {
+    if (!image || !image.size) {
       setPreview('');
       return;
     }
@@ -48,14 +48,14 @@ export function NewProductModal() {
   }, [product.image]);
 
   return (
-    <Modal isOpen={isCreateProductModalOpen} onClose={handleCloseModal} title='Novo Produto'>
+    <Modal isOpen={isCreateProductModalOpen} onClose={handleCloseCreateProductModal} title='Novo Produto'>
       <Content>
         <Form onSubmit={(e) => handleCreateNewProduct(e)}>
           <Body>
             <FormContent>
               <h2>Imagem</h2>
               <ImageContainer>
-                <Image src={product.image ? preview : emptyIMG} />
+                <Image src={preview ? preview : emptyIMG} />
 
                 <label htmlFor="file-upload" className="custom-file-upload">
                   <img src={imageIcon} />
