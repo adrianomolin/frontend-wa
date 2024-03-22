@@ -1,14 +1,14 @@
 import { FormEvent, useState } from 'react';
-import { useIngredients } from '@app/hooks/useIngredients';
-import { useCategories } from '@app/hooks/useCategories';
 import { Ingredient } from '@app/types/Ingredient';
 
-import { useProductsController } from '../../ProductsContext/useProductsController';
+import { useProductsController } from '../ProductsContext/useProductsController';
 import { useMutation } from '@tanstack/react-query';
 import { productsService } from '@app/services/productsService';
 import { toast } from 'react-toastify';
 import { useInvalidate } from '@app/hooks/useInvalidate';
 import { Product } from '@app/types/Product';
+import { useCategoriesController } from '../../Categories/CategoriesContext/useCategoriesController';
+import { useIngredientsController } from '../../Ingredients/IngredientsContext/useIngredientsController';
 
 type ProductProps = {
   name: string;
@@ -30,14 +30,14 @@ export function useProductsModalController() {
     selectedProduct
   } = useProductsController();
 
-  const { categories } = useCategories();
-  const { ingredients: IngredientsInitial } = useIngredients();
+  const { categories } = useCategoriesController();
+  const { ingredients: rawIngredients, handleOpenCreateIngredientModal } = useIngredientsController();
   const { invalidate } = useInvalidate();
 
   const [searchInput, setSearchInput] = useState('');
   const [isNewProductValid, setIsNewProductValid] = useState(true);
 
-  const ingredients = IngredientsInitial?.filter(ingredient => (ingredient.name.match(searchInput)));
+  const ingredients = rawIngredients?.filter(ingredient => (ingredient.name.match(searchInput)));
 
   const [product, setProduct] = useState<ProductProps>({
     name: selectedProduct?.name ?? '',
@@ -172,6 +172,7 @@ export function useProductsModalController() {
     isCreateProductModalOpen,
     isEditProductModalOpen,
     isDeleteProductModalOpen,
+    handleOpenCreateIngredientModal,
     handleCloseCreateProductModal,
     handleCloseEditProductModal,
     handleCloseDeleteProductModal,
