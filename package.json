@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@atlaskit/checkbox": "^12.4.6",
+    "@tanstack/react-query": "^5.28.4",
     "axios": "^1.3.3",
     "framer-motion": "^10.3.2",
     "pretty-checkbox": "^3.0.3",

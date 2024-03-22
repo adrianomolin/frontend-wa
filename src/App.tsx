@@ -6,14 +6,29 @@ import { GlobalStyles } from './view/styles/GlobalStyles';
 import defaultTheme from './view/styles/themes/default';
 import { ThemeProvider } from 'styled-components';
 
-import { Routes } from './Router/Routes';
+import { Router } from './Router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from '@app/context/AuthContext';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyles />
-      <Routes />
-      <ToastContainer position="bottom-center" />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={defaultTheme}>
+        <AuthProvider>
+          <GlobalStyles />
+          <Router />
+          <ToastContainer position="bottom-center" />
+        </AuthProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
