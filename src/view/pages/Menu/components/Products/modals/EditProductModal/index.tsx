@@ -23,6 +23,7 @@ export function EditProductModal() {
     handleEditProduct,
     handleSearchInput,
     handleCheckboxChange,
+    handleOpenCreateIngredientModal,
     handleCloseEditProductModal,
     handleInputChange,
     selectedProduct
@@ -123,6 +124,7 @@ export function EditProductModal() {
                 <h2>Ingredientes</h2>
                 <button
                   type='button'
+                  onClick={handleOpenCreateIngredientModal}
                 >
                   Novo Ingrediente
                 </button>

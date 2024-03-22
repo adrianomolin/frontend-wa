@@ -19,6 +19,7 @@ export function NewProductModal() {
     handleSearchInput,
     handleInputChange,
     handleCheckboxChange,
+    handleOpenCreateIngredientModal,
     handleCloseCreateProductModal,
     isCreateProductModalOpen,
     ingredients,
@@ -126,6 +127,7 @@ export function NewProductModal() {
                 <h2>Ingredientes</h2>
                 <button
                   type='button'
+                  onClick={handleOpenCreateIngredientModal}
                 >
                   Novo Ingrediente
                 </button>

@@ -2,7 +2,7 @@ import editIcon from '@assets/icons/edit.svg';
 import deleteIcon from '@assets/icons/delete.svg';
 import { List, ListProps } from '@components/List';
 import { formatCurrency } from '@app/utils/formatCurrency';
-import { useProductsController } from '../../../ProductsContext/useProductsController';
+import { useProductsController } from '../../ProductsContext/useProductsController';
 
 export function ProductsList() {
   const { products, handleOpenCreateProductModal, handleOpenEditProductModal, handleOpenDeleteProductModal } = useProductsController();
