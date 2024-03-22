@@ -1,113 +1,46 @@
-import { FormEvent, useState } from 'react';
-
-import { useAuth } from '../../../../../app/context/AuthContext';
-import { useModal } from '../../../../../app/context/ModalContext';
-
-import closeIcon from '../../../assets/icons/close-icon.svg';
-
-import { FormGroup } from '../../../../components/FormGroup';
-import Input from '../../../../components/Input';
-import Button from '../../../../components/Button';
+import { FormGroup } from '@components/FormGroup';
+import Input from '@components/Input';
+import Button from '@components/Button';
 
 import { Actions, Content, Form, Checkbox } from './styles';
+import { useUsersModalController } from '../useUsersModalController';
+import { Modal } from '@view/components/Modal';
 
 export function NewUserModal() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [active, setActive] = useState(false);
-
-  const { handleCloseModal } = useModal();
-
-  const { handleCreateNewUser } = useAuth();
-
-  function clearFields() {
-    setName('');
-    setEmail('');
-    setPassword('');
-    setRole('');
-    setActive(false);
-  }
-
-  function handleNameInput(e: FormEvent<HTMLInputElement>) {
-    setName(e.currentTarget.value);
-    !e.currentTarget.value || !email || !password || !role
-      ? setActive(false) : setActive(true);
-  }
-
-  function handleEmailInput(e: FormEvent<HTMLInputElement>) {
-    setEmail(e.currentTarget.value);
-    !e.currentTarget.value || !name || !password || !role
-      ? setActive(false) : setActive(true);
-  }
-
-  function handlePasswordInput(e: FormEvent<HTMLInputElement>) {
-    setPassword(e.currentTarget.value);
-    !e.currentTarget.value || !name || !email || !role
-      ? setActive(false) : setActive(true);
-  }
-
-  function handleRoleInput(e: FormEvent<HTMLInputElement>) {
-    setRole(e.currentTarget.value);
-    !e.currentTarget.value || !name || !email || !password
-      ? setActive(false) : setActive(true);
-  }
-
-
-  function closeModal() {
-    clearFields();
-    handleCloseModal();
-  }
-
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-
-    handleCreateNewUser({
-      name,
-      email,
-      password,
-      role,
-    });
-
-    closeModal();
-  }
+  const {
+    user,
+    isCreateUserModalOpen,
+    isUserValid,
+    handleInputChange,
+    handleCreateNewUser,
+    handleCloseCreateUserModal,
+  } = useUsersModalController();
 
   return (
-    <>
-      <header>
-        <strong>
-            Novo Usuário
-        </strong>
-
-        <button type="button">
-          <img src={closeIcon} alt="Fechar" onClick={closeModal} />
-        </button>
-      </header>
-
+    <Modal title='Novo Usuário' isOpen={isCreateUserModalOpen} onClose={handleCloseCreateUserModal}>
       <Content>
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleCreateNewUser}>
           <FormGroup title="Nome">
             <Input
-              value={name}
-              onChange={handleNameInput}
+              value={user.name}
+              onChange={(e) => handleInputChange('name', e.currentTarget.value)}
               width='26'
             />
           </FormGroup>
 
           <FormGroup title="E-mail">
             <Input
-              value={email}
-              onChange={handleEmailInput}
+              value={user.email}
+              onChange={(e) => handleInputChange('email', e.currentTarget.value)}
               width='26'
             />
           </FormGroup>
 
           <FormGroup title="Senha">
             <Input
-              value={password}
-              onChange={handlePasswordInput}
+              value={user.password}
+              onChange={(e) => handleInputChange('password', e.currentTarget.value)}
               type="password"
               width='26'
             />
@@ -117,7 +50,7 @@ export function NewUserModal() {
             <Checkbox>
               <div className='checkbox'>
                 <Input
-                  onChange={handleRoleInput}
+                  onChange={(e) => handleInputChange('role', e.currentTarget.value)}
                   type="radio"
                   id="admin"
                   name="role"
@@ -128,7 +61,7 @@ export function NewUserModal() {
 
               <div className='checkbox'>
                 <Input
-                  onChange={handleRoleInput}
+                  onChange={(e) => handleInputChange('name', e.currentTarget.value)}
                   type="radio"
                   id="user"
                   name="role"
@@ -143,7 +76,7 @@ export function NewUserModal() {
           <Actions>
             <Button
               type='submit'
-              disabled={!active}
+              disabled={!isUserValid}
               width='26'
             >
             Cadastrar usuários
@@ -151,6 +84,6 @@ export function NewUserModal() {
           </Actions>
         </Form>
       </Content>
-    </>
+    </Modal>
   );
 }

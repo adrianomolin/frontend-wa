@@ -1,7 +1,7 @@
-import { List, ListProps } from '../../../../components/List';
-import editIcon from '../../../../../assets/icons/edit.svg';
-import deleteIcon from '../../../../../assets/icons/delete.svg';
-import { useUsersController } from '../../useUsersController';
+import { List, ListProps } from '@components/List';
+import editIcon from '@assets/icons/edit.svg';
+import deleteIcon from '@assets/icons/delete.svg';
+import { useUsersController } from '../../components/UsersContext/useUsersController';
 
 export function UsersList() {
   const { users, handleOpenNewUserModal, handleOpenEditUserModal, handleOpenDeleteUserModal } = useUsersController();

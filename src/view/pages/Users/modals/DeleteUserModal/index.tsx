@@ -1,31 +1,21 @@
-import { Actions, Content, Form } from './styles';
-import { FormGroup } from '../../../../components/FormGroup';
-import Input from '../../../../components/Input';
+import { FormGroup } from '@components/FormGroup';
+import Input from '@components/Input';
+import Button from '@components/Button';
 
-import closeIcon from '../../../assets/icons/close-icon.svg';
-import Button from '../../../../components/Button';
-import { useModal } from '../../../../../app/context/ModalContext';
+import { Actions, Content, Form } from './styles';
+import { useUsersModalController } from '../useUsersModalController';
+import { Modal } from '@view/components/Modal';
 
 export function DeleteUserModal() {
-  const { selectedModalProps, handleCloseModal } = useModal();
-  const { user } = selectedModalProps;
-
-  if (!user) {
-    return null;
-  }
+  const {
+    user,
+    isDeleteUserModalOpen,
+    handleDeleteUser,
+    handleCloseDeleteUserModal,
+  } = useUsersModalController();
 
   return (
-    <>
-      <header>
-        <strong>
-            Excluir Usuário
-        </strong>
-
-        <button type="button">
-          <img src={closeIcon} alt="Fechar" onClick={handleCloseModal} />
-        </button>
-      </header>
-
+    <Modal title='Deletar Usuário' isOpen={isDeleteUserModalOpen} onClose={handleCloseDeleteUserModal} >
       <Content>
           Tem certeza que deseja excluir o usuário?
         <Form>
@@ -52,19 +42,20 @@ export function DeleteUserModal() {
         <button
           type="button"
           className="secondary"
-          onClick={handleCloseModal}
+          onClick={handleCloseDeleteUserModal}
         >
-              Manter usuário
+          Manter usuário
         </button>
 
         <Button
           type="button"
           className="primary"
           width='10.625'
+          onClick={handleDeleteUser}
         >
-              Excluir usuário
+          Excluir usuário
         </Button>
       </Actions>
-    </>
+    </Modal>
   );
 }

@@ -1,38 +1,30 @@
 import { Actions, Content, Form, Checkbox } from './styles';
-import { FormGroup } from '../../../../components/FormGroup';
-import Input from '../../../../components/Input';
-import Button from '../../../../components/Button';
+import { FormGroup } from '@components/FormGroup';
+import Input from '@components/Input';
+import Button from '@components/Button';
 
-import closeIcon from '../../../assets/icons/close-icon.svg';
-import { useModal } from '../../../../../app/context/ModalContext';
+import { Modal } from '@view/components/Modal';
+import { useUsersModalController } from '../useUsersModalController';
 
 export function EditUserModal() {
-  const { selectedModalProps, handleCloseModal } = useModal();
-  const { user } = selectedModalProps;
-
-  if (!user) {
-    return null;
-  }
+  const {
+    user,
+    isEditUserModalOpen,
+    isUserValid,
+    handleInputChange,
+    handleEditUser,
+    handleCloseEditUserModal,
+  } = useUsersModalController();
 
   return (
-    <>
-      <header>
-        <strong>
-            Editar Usuário
-        </strong>
-
-        <button type="button">
-          <img src={closeIcon} alt="Fechar" onClick={handleCloseModal} />
-        </button>
-      </header>
-
+    <Modal title='Editar usuário' isOpen={isEditUserModalOpen} onClose={handleCloseEditUserModal}>
       <Content>
-
-        <Form>
+        <Form onSubmit={handleEditUser}>
           <FormGroup title="Nome">
             <Input
               value={user.name}
               width='26'
+              onChange={(e) => handleInputChange('name', e.currentTarget.value)}
             />
           </FormGroup>
 
@@ -40,6 +32,7 @@ export function EditUserModal() {
             <Input
               value={user.email}
               width='26'
+              onChange={(e) => handleInputChange('email', e.currentTarget.value)}
             />
           </FormGroup>
 
@@ -52,6 +45,7 @@ export function EditUserModal() {
                   id="admin"
                   name="role"
                   value="Admin"
+                  onChange={(e) => handleInputChange('role', e.currentTarget.value)}
                 />
                 <label htmlFor="admin" className='label'>Admin</label>
               </div>
@@ -63,6 +57,7 @@ export function EditUserModal() {
                   id="user"
                   name="role"
                   value="Garçom"
+                  onChange={(e) => handleInputChange('role', e.currentTarget.value)}
                 />
                 <label htmlFor="user" className='label'>Garçom</label>
               </div>
@@ -75,10 +70,11 @@ export function EditUserModal() {
       <Actions>
         <Button
           width='26'
+          disabled={!isUserValid}
         >
             Cadastrar usuários
         </Button>
       </Actions>
-    </>
+    </Modal>
   );
 }
