@@ -1,13 +1,21 @@
 import { Overlay } from './styles';
 
 import ReactPortal from '../ReactPortal';
+import Spinner from '../Spinner';
 
-export default function Loader() {
+interface LoaderProps {
+  isLoading?: boolean;
+}
+
+export default function Loader({ isLoading }: LoaderProps) {
+  if (!isLoading) {
+    return null;
+  }
 
   return (
     <ReactPortal containerId='loader-container'>
       <Overlay>
-        <div className="loader" />
+        <Spinner />
       </Overlay>
     </ReactPortal>
   );
