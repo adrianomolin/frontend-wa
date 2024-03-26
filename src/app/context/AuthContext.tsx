@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { authService } from '@app/services/authService';
 import Loader from '@view/components/Loader';
 import { toast } from 'react-toastify';
+import { useInvalidate } from '@app/hooks/useInvalidate';
 
 interface AuthContextProps {
   user: User | null,
@@ -33,10 +34,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     staleTime: Infinity
   });
 
+  const { invalidate } = useInvalidate();
+
   const signin =  useCallback((accessToken: string) => {
     if (!accessToken) throw new Error('Access token is required');
 
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
+    invalidate(['users', 'me']);
 
     setSignedIn(true);
   }, []);
