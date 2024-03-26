@@ -86,7 +86,7 @@ export function NavBar() {
           </NavItem>
 
           <NavItem>
-            <NavLink to='/auth/login'>
+            <NavLink to=''>
               <button onClick={signout}>
                 <Logout />
                 <Title>Sair</Title>
