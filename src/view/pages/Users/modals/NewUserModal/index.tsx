@@ -54,18 +54,18 @@ export function NewUserModal() {
                   type="radio"
                   id="admin"
                   name="role"
-                  value="Admin"
+                  value="ADMIN"
                 />
                 <label htmlFor="admin" className='label'>Admin</label>
               </div>
 
               <div className='checkbox'>
                 <Input
-                  onChange={(e) => handleInputChange('name', e.currentTarget.value)}
+                  onChange={(e) => handleInputChange('role', e.currentTarget.value)}
                   type="radio"
                   id="user"
                   name="role"
-                  value="user"
+                  value="USER"
                 />
                 <label htmlFor="user" className='label'>Garçom</label>
               </div>

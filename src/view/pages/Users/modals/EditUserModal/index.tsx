@@ -13,7 +13,7 @@ export function EditUserModal() {
     isUserValid,
     handleInputChange,
     handleEditUser,
-    handleCloseEditUserModal,
+    handleCloseEditUserModal
   } = useUsersModalController();
 
   return (
@@ -44,7 +44,7 @@ export function EditUserModal() {
                   type="radio"
                   id="admin"
                   name="role"
-                  value="Admin"
+                  value="ADMIN"
                   onChange={(e) => handleInputChange('role', e.currentTarget.value)}
                 />
                 <label htmlFor="admin" className='label'>Admin</label>
@@ -56,7 +56,7 @@ export function EditUserModal() {
                   type="radio"
                   id="user"
                   name="role"
-                  value="Garçom"
+                  value="USER"
                   onChange={(e) => handleInputChange('role', e.currentTarget.value)}
                 />
                 <label htmlFor="user" className='label'>Garçom</label>
@@ -72,7 +72,7 @@ export function EditUserModal() {
           width='26'
           disabled={!isUserValid}
         >
-            Cadastrar usuários
+            Editar usuário
         </Button>
       </Actions>
     </Modal>

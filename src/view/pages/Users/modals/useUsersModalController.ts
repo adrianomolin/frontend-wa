@@ -1,6 +1,10 @@
 import { User } from '@app/types/User';
-import { useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { useUsersController } from '../components/UsersContext/useUsersController';
+import { useMutation } from '@tanstack/react-query';
+import { usersService } from '@app/services/usersService';
+import { useInvalidate } from '@app/hooks/useInvalidate';
+import { toast } from 'react-toastify';
 
 type UserProps = Omit<User, '_id'>
 
@@ -15,12 +19,23 @@ export function useUsersModalController() {
     handleCloseEditUserModal
   } = useUsersController();
 
-  const [user, setUser] = useState<UserProps>({
+  const { invalidate } = useInvalidate();
+
+  const defaultUserProps = {
     name: selectedUser?.name ?? '',
     email: selectedUser?.email ?? '',
     password: selectedUser?.password ?? '',
     role: selectedUser?.role ?? '',
-  } as UserProps);
+  };
+
+  const [user, setUser] = useState<UserProps>(defaultUserProps);
+
+  useEffect(() => {
+    setUser(defaultUserProps);
+
+    // Some sort of workaround to avoid the modal to open with the previous category data
+    if (isCreateUserModalOpen) setUser({ name: '', email: '', password: '', role: '' });
+  }, [selectedUser, isCreateUserModalOpen]);
 
   function handleInputChange(input: keyof UserProps, value: typeof user[keyof UserProps]) {
     setUser(prevState => ({
@@ -29,8 +44,21 @@ export function useUsersModalController() {
     }));
   }
 
-  function handleCreateNewUser() {
-    console.log('create');
+  const { mutateAsync: createMutateAsync } = useMutation({
+    mutationFn: usersService.create
+  });
+
+  async function handleCreateNewUser(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    try {
+      await createMutateAsync(user);
+
+      invalidate(['users']);
+      toast.success('Usuário criado com sucesso');
+    } catch (err) {
+      toast.error('Erro ao criar usuário');
+    }
   }
 
   function handleEditUser() {
@@ -59,6 +87,7 @@ export function useUsersModalController() {
     handleCloseCreateUserModal,
     handleCloseDeleteUserModal,
     handleCloseEditUserModal,
+    selectedUser,
     isUserValid,
   };
 }
