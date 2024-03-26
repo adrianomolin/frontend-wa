@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 type SigninParams = Omit<User, '_id' | 'role' | 'name'>;
 
-export function useAuthController() {
+export function useSigninController() {
   const [user, setUser] = useState<SigninParams>({
     email: '',
     password: ''

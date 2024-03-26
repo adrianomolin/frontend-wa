@@ -1,19 +1,19 @@
-import { Container, Form, Welcome } from './styles';
+import { Container, Form, Welcome } from '../styles';
 
 import { FormGroup } from '@components/FormGroup';
 import { Logo } from '@components/Logo';
 import Button from '@components/Button';
 import Input from '@components/Input';
-import { useAuthController } from './useAuthController';
+import { useSignupController } from './useSignupController';
 
-export function Authentication() {
+export function Signup() {
   const {
     handleSubmit,
     handleInputChange,
     getErrorMessageByFieldName,
     user,
     isLoading
-  } = useAuthController();
+  } = useSignupController();
 
   return (
     <Container>
@@ -23,12 +23,21 @@ export function Authentication() {
 
       <Logo fontSize={32}/>
 
-      <Form onSubmit={handleSubmit} noValidate>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup error={getErrorMessageByFieldName('name')} title="Nome">
+          <Input
+            type='name'
+            value={user.name}
+            placeholder='Nome'
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            error={getErrorMessageByFieldName('name')}
+          />
+        </FormGroup>
         <FormGroup error={getErrorMessageByFieldName('email')} title="E-mail">
           <Input
             type='email'
             value={user.email}
-            placeholder='Seu e-mail de acesso'
+            placeholder='exemplo@email.com'
             onChange={(e) => handleInputChange('email', e.target.value)}
             error={getErrorMessageByFieldName('email')}
           />
@@ -38,7 +47,7 @@ export function Authentication() {
           <Input
             type='password'
             value={user.password}
-            placeholder='Informe sua senha'
+            placeholder='Senha'
             onChange={(e) => handleInputChange('password', e.target.value)}
             error={getErrorMessageByFieldName('password')}
           />
