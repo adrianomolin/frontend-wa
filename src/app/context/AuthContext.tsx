@@ -34,6 +34,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   });
 
   const signin =  useCallback((accessToken: string) => {
+    if (!accessToken) throw new Error('Access token is required');
+
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
 
     setSignedIn(true);
