@@ -5,9 +5,10 @@ import { History } from '../view/pages/History';
 import { Menu } from '../view/pages/Menu';
 import { Users } from '../view/pages/Users';
 import { Profile } from '../view/pages/Profile';
-import { Authentication } from '../view/pages/Authentication';
 import { AuthGuard } from './AuthGuard';
 import { AppLayout } from '@view/layouts/AppLayout';
+import { Signin } from '@view/pages/Authentication/signin';
+import { Signup } from '@view/pages/Authentication/signup';
 
 export function Router() {
   return (
@@ -24,7 +25,8 @@ export function Router() {
         </Route>
 
         <Route element={<AuthGuard isPrivate={false}/>}>
-          <Route path="/auth/login" element={<Authentication />} />
+          <Route path="/auth/signin" element={<Signin />} />
+          <Route path="/auth/signup" element={<Signup />} />
         </Route>
       </Routes>
     </BrowserRouter>
